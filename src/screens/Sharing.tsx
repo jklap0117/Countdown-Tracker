@@ -1,8 +1,9 @@
-import { useMemo, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import type { PersonFilter as PersonFilterValue } from '../types'
 import { categoryById } from '../data/categories'
 import { PARTNER_NAME, USER_NAME, WHO, matchesPerson } from '../data/people'
 import { byDateAscending, countdownCopy, formatWhen, isPast } from '../lib/date'
+import { disablePush, enablePush, getPushState, type PushState } from '../lib/push'
 import { useApp } from '../store/AppContext'
 import type { ShareRules } from '../store/appReducer'
 import { Switch } from '../components/Switch'
@@ -39,6 +40,78 @@ const RULES: { key: keyof ShareRules; title: string; sub: string; dot: string; c
     color: 'var(--color-neutral-600)',
   },
 ]
+
+/** Copy for each state the browser can actually be in. */
+const PUSH_COPY: Record<PushState, string> = {
+  on: 'Reminders arrive on this device, one day before at 9:00 AM.',
+  off: 'Get a nudge one day before, at 9:00 AM.',
+  denied: 'Blocked — turn notifications back on in your browser settings.',
+  'needs-install': 'Add this app to your home screen first — iOS only allows it there.',
+  'needs-sync': 'Needs syncing turned on, so reminders have somewhere to come from.',
+  unsupported: "This browser can't do push notifications.",
+}
+
+/**
+ * Notification permission belongs to the browser, not the account, so this row
+ * reports what THIS device can do rather than an account-wide preference like
+ * the switches above it.
+ */
+function PushRow() {
+  const [state, setState] = useState<PushState | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let active = true
+    void getPushState().then((next) => {
+      if (active) setState(next)
+    })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  async function toggle(next: boolean) {
+    setBusy(true)
+    setError(null)
+    try {
+      setState(next ? await enablePush() : await disablePush())
+    } catch (cause: unknown) {
+      setError(cause instanceof Error ? cause.message : String(cause))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  if (state === null) return null
+
+  const actionable = state === 'on' || state === 'off'
+
+  return (
+    <div className={styles.rule}>
+      <div
+        className={styles.ruleDot}
+        aria-hidden="true"
+        style={{ '--dot-color': 'var(--color-accent-700)' } as CSSProperties}
+      >
+        N
+      </div>
+      <div className={styles.ruleMain}>
+        <div className={styles.ruleTitle}>Reminders on this device</div>
+        <div className={styles.ruleSub}>{error ?? PUSH_COPY[state]}</div>
+      </div>
+      {actionable && (
+        <Switch
+          checked={state === 'on'}
+          onChange={(next) => {
+            if (!busy) void toggle(next)
+          }}
+          label="Reminders on this device"
+        />
+      )}
+    </div>
+  )
+}
 
 export function Sharing() {
   const { state, dispatch } = useApp()
@@ -137,6 +210,8 @@ export function Sharing() {
               />
             </div>
           ))}
+          <PushRow />
+
           <div className={styles.footnote}>
             Private milestones stay on your phone — she'll never see them, even in the count.
           </div>

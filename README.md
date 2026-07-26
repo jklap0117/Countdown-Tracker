@@ -32,6 +32,18 @@ To turn sync on:
    ```
    User ids are in Dashboard → Authentication → Users.
 
+### Reminders
+
+Two independent mechanisms, both firing **one day before at 9:00 AM local**.
+
+**Add to calendar** (`src/lib/ics.ts`) downloads an `.ics` with a `VALARM`. No server, no account, no permission prompt — the OS calendar owns the alarm. Works today.
+
+**Push notifications** need sync to be on, because a scheduled job has to be able to read the milestones. `supabase/functions/send-reminders` runs hourly via `pg_cron`; each push subscription stores the IANA timezone of the device that created it, and the job only sends to a device when it is locally 9 AM. That is why it runs hourly rather than once a day — it is the only way to be right for both people through DST and while travelling.
+
+The VAPID private key and the cron shared secret live in Supabase Vault, reachable only through `get_reminder_config()`, which only `service_role` may call. The VAPID *public* key is in `.env` and committed, which is correct — it is handed to the browser's push service on every subscribe.
+
+Enable it per device from Sharing → *Reminders on this device*. Permission is granted per browser, so each phone opts in separately. **On iOS the app must be installed to the home screen first** — Safari refuses push to an ordinary tab.
+
 **Visibility is enforced in the database, not the UI.** `who = 'me'` means private to whoever wrote it; because that lives in a `SELECT` policy, a private row is invisible to the partner in every query including `count(*)`. `who = 'maddie'` and `who = 'both'` are visible to both. A partner can edit or delete a shared item but cannot convert it into a private one.
 
 ### Layout
