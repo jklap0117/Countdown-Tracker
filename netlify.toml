@@ -7,3 +7,17 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Netlify serves .webmanifest as application/octet-stream by default, which
+# stops browsers treating it as an install manifest.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+# A stale service worker keeps serving stale push handlers, so never cache it.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Content-Type = "application/javascript; charset=utf-8"
