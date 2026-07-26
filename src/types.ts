@@ -23,7 +23,7 @@ export interface Milestone {
   who: Who
   notes?: string
   link?: string
-  /** 1 week before, 9:00 AM */
+  /** 1 day before, 9:00 AM local. */
   remind?: boolean
 }
 

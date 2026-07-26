@@ -9,6 +9,7 @@ import {
   parseDate,
   relativeAgo,
 } from '../lib/date'
+import { downloadIcs } from '../lib/ics'
 import { useApp } from '../store/AppContext'
 import styles from './Detail.module.css'
 
@@ -155,14 +156,18 @@ export function Detail() {
           <div className={styles.metaRow}>
             <div className={styles.metaLabel}>{past ? 'Happened' : 'Reminder'}</div>
             <div className={styles.metaValue}>
-              {past ? relativeAgo(item, now) : '1 week before'}
+              {past ? relativeAgo(item, now) : '1 day before'}
             </div>
           </div>
         </div>
       </div>
 
       <div className={styles.actions}>
-        <button type="button" className={styles.action}>
+        <button
+          type="button"
+          className={styles.action}
+          onClick={past ? undefined : () => downloadIcs(item)}
+        >
           {past ? 'Add photos' : 'Add to calendar'}
         </button>
         <button type="button" className={`${styles.action} ${styles.share}`}>

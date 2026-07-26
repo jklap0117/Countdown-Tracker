@@ -269,7 +269,7 @@ export function Add() {
             <div className={styles.row}>
               <div>
                 <div className={styles.rowLabel}>Remind me</div>
-                <div className={styles.rowSub}>One week before, 9:00 AM</div>
+                <div className={styles.rowSub}>One day before, 9:00 AM</div>
               </div>
               <Switch
                 checked={draft.remind}
