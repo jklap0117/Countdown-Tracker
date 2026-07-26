@@ -30,9 +30,18 @@ function startOfDay(d: Date): Date {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate())
 }
 
-/** Rule 3: an item is past the moment its instant is behind `now`. */
+/**
+ * Rule 3: an item is past the moment its instant is behind `now`.
+ *
+ * All-day items are the exception. They have no instant — only a date — so
+ * they last the whole calendar day and move to Past the following day. Comparing
+ * their midnight against `now` would retire them at 00:01 on the day itself,
+ * which would make the countdown's own `0 → "today"` case unreachable.
+ */
 export function isPast(item: Milestone, now: Date): boolean {
-  return parseDate(item.date).getTime() < now.getTime()
+  const target = parseDate(item.date)
+  if (item.time) return target.getTime() < now.getTime()
+  return startOfDay(target).getTime() < startOfDay(now).getTime()
 }
 
 /**

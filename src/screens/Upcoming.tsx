@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { allCategories } from '../data/categories'
 import { matchesPerson } from '../data/people'
 import { byDateAscending, groupByMonth, isPast, pluralizeThings } from '../lib/date'
 import { useApp } from '../store/AppContext'
@@ -23,6 +24,9 @@ export function Upcoming() {
     [items, now, person, cat],
   )
 
+  // Custom categories are whatever ids the milestones actually carry.
+  const categories = useMemo(() => allCategories(items.map((item) => item.cat)), [items])
+
   // The hero is the next milestone and is NOT repeated in the month groups.
   const hero = list[0] ?? null
   const groups = useMemo(() => groupByMonth(list.slice(1)), [list])
@@ -43,7 +47,11 @@ export function Upcoming() {
         value={person}
         onChange={(next) => dispatch({ type: 'person/set', person: next })}
       />
-      <CategoryPills value={cat} onChange={(next) => dispatch({ type: 'cat/set', cat: next })} />
+      <CategoryPills
+        categories={categories}
+        value={cat}
+        onChange={(next) => dispatch({ type: 'cat/set', cat: next })}
+      />
 
       {hero && <HeroCard item={hero} now={now} onOpen={openDetail} />}
 

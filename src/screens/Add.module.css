@@ -134,6 +134,53 @@
   color: var(--color-accent-700);
 }
 
+/* Replaces the "+ New" chip in place while you name the category. */
+.newForm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px 3px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent);
+  background: var(--color-bg);
+}
+
+.newInput {
+  width: 116px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  caret-color: var(--color-accent);
+}
+
+.newInput:focus-visible {
+  outline: none;
+}
+
+.newAction {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-accent-700);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.newAction:hover:not(:disabled) {
+  background: var(--color-accent-200);
+}
+
+.newAction:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .whoRow {
   display: flex;
   gap: 8px;

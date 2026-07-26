@@ -1,7 +1,7 @@
-import { Plus } from 'lucide-react'
-import type { CSSProperties } from 'react'
+import { Check, Plus, X } from 'lucide-react'
+import { useState, type CSSProperties, type FormEvent } from 'react'
 import type { Milestone, Who } from '../types'
-import { CATEGORIES } from '../data/categories'
+import { allCategories, toCategoryId } from '../data/categories'
 import { PARTNER_NAME, USER_NAME } from '../data/people'
 import { addDays, toISODate } from '../lib/date'
 import { useApp } from '../store/AppContext'
@@ -12,7 +12,8 @@ import styles from './Add.module.css'
 const WHO_OPTIONS: { id: Who; label: string }[] = [
   { id: 'me', label: USER_NAME },
   { id: 'maddie', label: PARTNER_NAME },
-  { id: 'both', label: `${USER_NAME} + ${PARTNER_NAME}` },
+  // Matches the "Shared" bucket in the browsing filter and the widget picker.
+  { id: 'both', label: 'Shared' },
 ]
 
 function whoHint(who: Who): string {
@@ -23,9 +24,32 @@ function whoHint(who: Who): string {
 
 export function Add() {
   const { state, dispatch, store } = useApp()
-  const { draft, now } = state
+  const { draft, now, items } = state
+
+  // Naming a new category is a two-step inline flow rather than a dialog —
+  // one field, one tap, no modal stacked on a modal.
+  const [naming, setNaming] = useState(false)
+  const [newName, setNewName] = useState('')
 
   const patch = (next: Partial<Draft>) => dispatch({ type: 'draft/patch', patch: next })
+
+  // Existing custom categories, plus the one being drafted right now so its
+  // chip renders selected before the milestone is saved.
+  const categories = allCategories([...items.map((item) => item.cat), draft.cat])
+
+  function commitNewCategory(event: FormEvent) {
+    event.preventDefault()
+    const id = toCategoryId(newName)
+    if (id === '') return
+    patch({ cat: id })
+    setNewName('')
+    setNaming(false)
+  }
+
+  function cancelNewCategory() {
+    setNewName('')
+    setNaming(false)
+  }
 
   const close = () => {
     dispatch({ type: 'draft/reset' })
@@ -92,7 +116,7 @@ export function Add() {
         <div className={styles.section}>
           <div className={styles.label}>Category</div>
           <div className={styles.chips}>
-            {CATEGORIES.map((category) => {
+            {categories.map((category) => {
               const active = draft.cat === category.id
               return (
                 <button
@@ -107,10 +131,44 @@ export function Add() {
                 </button>
               )
             })}
-            <button type="button" className={styles.newChip}>
-              <Plus size={13} strokeWidth={2.75} aria-hidden="true" />
-              New
-            </button>
+
+            {naming ? (
+              <form className={styles.newForm} onSubmit={commitNewCategory}>
+                <input
+                  className={styles.newInput}
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') cancelNewCategory()
+                  }}
+                  placeholder="Category name"
+                  aria-label="New category name"
+                  maxLength={24}
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  className={styles.newAction}
+                  disabled={toCategoryId(newName) === ''}
+                  aria-label="Create category"
+                >
+                  <Check size={14} strokeWidth={2.75} aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  className={styles.newAction}
+                  onClick={cancelNewCategory}
+                  aria-label="Cancel"
+                >
+                  <X size={14} strokeWidth={2.75} aria-hidden="true" />
+                </button>
+              </form>
+            ) : (
+              <button type="button" className={styles.newChip} onClick={() => setNaming(true)}>
+                <Plus size={13} strokeWidth={2.75} aria-hidden="true" />
+                New
+              </button>
+            )}
           </div>
         </div>
 
