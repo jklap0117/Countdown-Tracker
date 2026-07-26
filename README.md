@@ -20,6 +20,10 @@ npm run dev
 
 With no credentials the app runs on `localStorage` — single device, no sign-in. **This is the current state:** the credentials in `.env.local` are commented out until the app is deployed, because magic links redirect to `window.location.origin` and a `localhost` link is useless from a phone.
 
+Deployed at **https://milestone-countdown-tracker.netlify.app**, with all three `VITE_*` variables set in Netlify → Site configuration → Environment variables.
+
+> **Two things that fail silently.** The Netlify deploy CLI strips `.env` from the upload, so anything in it must *also* be a Netlify environment variable — `.env` alone covers local builds only. And building without `VITE_SUPABASE_URL` set makes Vite fold `isSupabaseConfigured` to a compile-time `false`, which dead-code-eliminates the entire push subscription path: the build succeeds, the bundle is ~100 KB smaller, and notifications simply do not exist. If push seems missing, check the bundle for `applicationServerKey` before debugging anything else.
+
 To turn sync on:
 
 1. Deploy first. Then in Supabase → Authentication → URL Configuration, set the Site URL to the deployed origin and add it to Redirect URLs.
