@@ -1,0 +1,243 @@
+.screen {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  padding: 52px 0 60px;
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px 0;
+}
+
+.back {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-surface);
+  color: var(--color-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.back:hover {
+  background: var(--color-neutral-300);
+}
+
+.edit {
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-accent-700);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 999px;
+}
+
+.edit:hover {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.ringWrap {
+  padding: 14px 20px 0;
+  text-align: center;
+}
+
+.ring {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.ringSvg {
+  transform: rotate(-90deg);
+}
+
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ringCount {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 74px;
+  line-height: 0.9;
+}
+
+.ringWord {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-top: 6px;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 18px;
+}
+
+.colValue {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 24px;
+}
+
+.colLabel {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+}
+
+.colRule {
+  width: 1px;
+  background: var(--color-divider);
+}
+
+.titleBlock {
+  padding: 26px 20px 0;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 11px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 30px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 12px 0 4px;
+  text-wrap: pretty;
+}
+
+.longWhen {
+  font-size: 14px;
+  color: var(--color-neutral-600);
+}
+
+.cardWrap {
+  padding: 24px 20px 0;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: 28px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardLabel {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-bottom: 4px;
+}
+
+.notes {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-divider);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metaLabel {
+  font-size: 14px;
+}
+
+.metaValue {
+  font-size: 13px;
+  color: var(--color-neutral-600);
+}
+
+.actions {
+  padding: 16px 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.action {
+  flex: 1;
+  height: 46px;
+  border: 1px solid var(--color-divider);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.action:hover {
+  background: color-mix(in srgb, var(--color-text) 7%, transparent);
+}
+
+.share {
+  color: var(--color-accent-700);
+}
+
+.deleteWrap {
+  padding: 20px 20px 0;
+  text-align: center;
+}
+
+.delete {
+  border: none;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 13px;
+  color: var(--color-neutral-600);
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.delete:hover {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-accent-700);
+}

@@ -18,9 +18,12 @@ npm run dev
 
 ### Sync setup (Supabase)
 
-With no credentials the app runs on `localStorage` — single device, no sign-in. To sync between two phones:
+With no credentials the app runs on `localStorage` — single device, no sign-in. **This is the current state:** the credentials in `.env.local` are commented out until the app is deployed, because magic links redirect to `window.location.origin` and a `localhost` link is useless from a phone.
 
-1. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key. `.env.local` is gitignored.
+To turn sync on:
+
+1. Deploy first. Then in Supabase → Authentication → URL Configuration, set the Site URL to the deployed origin and add it to Redirect URLs.
+2. Uncomment both lines in `.env.local`, and set the same two variables in Netlify → Site configuration → Environment variables.
 2. Run `supabase/migrations/0001_init.sql` in the Supabase SQL editor. It creates the tables, the row-level security policies and the realtime publication.
 3. Both people sign in with a magic link. Then pair the two accounts by inserting a row in `partners` **in each direction** — the Sharing screen will do this once it exists:
    ```sql
@@ -35,7 +38,8 @@ With no credentials the app runs on `localStorage` — single device, no sign-in
 
 | Path | What it is |
 | --- | --- |
-| `src/` | The app. `App.tsx` is still a scaffold placeholder — replace it with the Upcoming screen. |
+| `src/screens/` | Upcoming, Past, Sharing, Detail, Add — all five built. |
+| `src/components/` | Shared pieces: rows, filters, hero, tab bar, FAB, switch. |
 | `src/styles/organic-styles.css` | The Organic design system — tokens + component classes. Imported in `main.tsx`. Source of truth for every value below. |
 | `src/index.css` | App base only: reset, the 402px centered column, focus ring. |
 | `src/types.ts` | The data model from this doc. |

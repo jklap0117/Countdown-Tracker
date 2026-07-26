@@ -1,0 +1,312 @@
+.screen {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  padding: 58px 0 118px;
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 10px;
+}
+
+.cancel {
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-neutral-600);
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 999px;
+}
+
+.cancel:hover {
+  background: color-mix(in srgb, var(--color-text) 7%, transparent);
+}
+
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-neutral-500);
+}
+
+/* Balances the Cancel button so the kicker stays centred. */
+.spacer {
+  width: 44px;
+}
+
+.titleWrap {
+  padding: 6px 20px 0;
+}
+
+.titleInput {
+  width: 100%;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 28px;
+  color: var(--color-text);
+  caret-color: var(--color-accent);
+}
+
+.titleInput::placeholder {
+  color: var(--color-neutral-500);
+}
+
+.titleRule {
+  height: 1px;
+  background: var(--color-divider);
+  margin: 2px 0 24px;
+}
+
+.section {
+  padding: 0 20px 22px;
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-bottom: 10px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--color-divider);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.chip:hover:not(.chipActive) {
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
+/* Active category chips fill with that category's own colour. */
+.chipActive {
+  border-color: transparent;
+  background: var(--chip-color);
+  color: #fff;
+}
+
+.newChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px dashed var(--color-neutral-400);
+  background: transparent;
+  color: var(--color-neutral-600);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.newChip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-700);
+}
+
+.whoRow {
+  display: flex;
+  gap: 8px;
+}
+
+.whoChip {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--color-divider);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.whoChip:hover:not(.whoActive) {
+  background: color-mix(in srgb, var(--color-accent-2-600) 12%, transparent);
+}
+
+.whoActive {
+  border-color: transparent;
+  background: var(--color-accent-2-600);
+  color: #fff;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--color-neutral-600);
+  margin-top: 8px;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: 26px;
+  padding: 16px 18px;
+}
+
+.cardStack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rowLabel {
+  font-size: 14px;
+}
+
+.rowSub {
+  font-size: 11px;
+  color: var(--color-neutral-600);
+  margin-top: 1px;
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-divider);
+  margin: 14px 0;
+}
+
+.timeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.dateInput {
+  width: auto;
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--color-bg);
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 15px;
+  color: var(--color-accent-700);
+}
+
+.dateInput:focus-visible {
+  border-color: var(--color-accent);
+  outline-offset: 0;
+}
+
+.quick {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.quickChip {
+  padding: 7px 13px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-accent-100);
+  color: var(--color-accent-800);
+  font-family: var(--font-body);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.quickChip:hover {
+  background: var(--color-accent-200);
+}
+
+.textInput {
+  width: 100%;
+  min-height: 36px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  caret-color: var(--color-accent);
+}
+
+.textInput:focus-visible {
+  border-color: var(--color-accent);
+  outline-offset: 0;
+}
+
+/* Sticky save, fading into the page rather than sitting on a hard edge. */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(402px, 100%);
+  padding: 14px 20px 30px;
+  background: linear-gradient(to top, var(--color-bg) 62%, rgba(245, 234, 216, 0));
+  z-index: 12;
+}
+
+.save {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.save:hover:not(:disabled) {
+  background: var(--color-accent-600);
+}
+
+.save:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

@@ -45,7 +45,10 @@ export function AppProvider({
     return () => clearInterval(id)
   }, [])
 
-  const value = useMemo(() => ({ state, dispatch }), [state])
+  const value = useMemo(
+    () => ({ state, dispatch, store: milestoneStore }),
+    [state, milestoneStore],
+  )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

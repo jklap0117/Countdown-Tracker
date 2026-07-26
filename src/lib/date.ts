@@ -150,3 +150,26 @@ export function pluralizeThings(n: number): string {
 export function byDateAscending(a: Milestone, b: Milestone): number {
   return parseDate(a.date).getTime() - parseDate(b.date).getTime()
 }
+
+/** 'YYYY-MM-DD' in LOCAL time — `toISOString()` would shift the day. */
+export function toISODate(d: Date): string {
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${month}-${day}`
+}
+
+export function addDays(d: Date, days: number): Date {
+  const next = new Date(d)
+  next.setDate(next.getDate() + days)
+  return next
+}
+
+/** Hours / minutes / weeks remaining, for the Detail screen's three columns. */
+export function breakdown(item: Milestone, now: Date) {
+  const ms = Math.abs(parseDate(item.date).getTime() - now.getTime())
+  return {
+    hours: Math.floor((ms % MS_PER_DAY) / MS_PER_HOUR),
+    minutes: Math.floor((ms % MS_PER_HOUR) / 60_000),
+    weeks: Math.floor(Math.abs(daysUntil(item, now)) / 7),
+  }
+}

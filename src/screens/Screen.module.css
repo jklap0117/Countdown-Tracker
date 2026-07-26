@@ -32,6 +32,11 @@
   color: var(--color-neutral-600);
 }
 
+/* Past has no category row, so its groups need the spacing that row provided. */
+.pastGroups {
+  padding-top: 18px;
+}
+
 .back {
   display: inline-flex;
   align-items: center;

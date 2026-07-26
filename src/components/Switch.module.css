@@ -1,0 +1,27 @@
+.switch {
+  width: 50px;
+  height: 30px;
+  flex: none;
+  border: none;
+  border-radius: 999px;
+  padding: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: var(--color-neutral-400);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.on {
+  justify-content: flex-end;
+  background: var(--color-accent);
+}
+
+.knob {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}

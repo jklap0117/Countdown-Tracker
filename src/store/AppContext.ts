@@ -1,9 +1,12 @@
 import { createContext, useContext } from 'react'
 import type { AppAction, AppState } from './appReducer'
+import type { MilestoneStore } from './MilestoneStore'
 
 export interface AppContextValue {
   state: AppState
   dispatch: React.Dispatch<AppAction>
+  /** Screens mutate through this; the reducer only holds view state. */
+  store: MilestoneStore
 }
 
 export const AppContext = createContext<AppContextValue | null>(null)
