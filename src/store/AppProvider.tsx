@@ -19,9 +19,16 @@ export function AppProvider({
 
   useEffect(() => {
     let active = true
-    void milestoneStore.list().then((items) => {
-      if (active) dispatch({ type: 'items/loaded', items })
-    })
+    void milestoneStore
+      .list()
+      .then((items) => {
+        if (active) dispatch({ type: 'items/loaded', items })
+      })
+      .catch((cause: unknown) => {
+        if (!active) return
+        const message = cause instanceof Error ? cause.message : String(cause)
+        dispatch({ type: 'error/set', error: message })
+      })
     const unsubscribe = milestoneStore.subscribe((items) => {
       dispatch({ type: 'items/loaded', items })
     })

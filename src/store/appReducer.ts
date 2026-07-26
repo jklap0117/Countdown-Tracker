@@ -16,6 +16,8 @@ export interface AppState {
   widgetPerson: PersonFilter
   /** Ticked every 60s so countdowns stay honest. */
   now: Date
+  /** Surfaced rather than swallowed — a failed sync should be visible. */
+  error: string | null
 }
 
 export type AppAction =
@@ -26,6 +28,7 @@ export type AppAction =
   | { type: 'selected/set'; id: string | null }
   | { type: 'widgetPerson/set'; person: PersonFilter }
   | { type: 'now/tick'; now: Date }
+  | { type: 'error/set'; error: string | null }
 
 export const initialState: AppState = {
   items: [],
@@ -36,12 +39,13 @@ export const initialState: AppState = {
   selectedId: null,
   widgetPerson: 'all',
   now: new Date(),
+  error: null,
 }
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'items/loaded':
-      return { ...state, items: action.items, loaded: true }
+      return { ...state, items: action.items, loaded: true, error: null }
     case 'screen/set':
       return { ...state, screen: action.screen }
     case 'person/set':
@@ -54,6 +58,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, widgetPerson: action.person }
     case 'now/tick':
       return { ...state, now: action.now }
+    case 'error/set':
+      return { ...state, error: action.error, loaded: true }
     default:
       return state
   }

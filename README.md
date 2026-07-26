@@ -16,6 +16,21 @@ npm run dev
 
 `npm run build` typechecks and builds to `dist/`; `npm run preview` serves that build; `npm run lint` runs oxlint. Netlify config is in `netlify.toml` (build `npm run build`, publish `dist`, SPA redirect).
 
+### Sync setup (Supabase)
+
+With no credentials the app runs on `localStorage` — single device, no sign-in. To sync between two phones:
+
+1. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key. `.env.local` is gitignored.
+2. Run `supabase/migrations/0001_init.sql` in the Supabase SQL editor. It creates the tables, the row-level security policies and the realtime publication.
+3. Both people sign in with a magic link. Then pair the two accounts by inserting a row in `partners` **in each direction** — the Sharing screen will do this once it exists:
+   ```sql
+   insert into public.partners (user_id, partner_id) values ('<jordan-uuid>', '<maddie-uuid>');
+   insert into public.partners (user_id, partner_id) values ('<maddie-uuid>', '<jordan-uuid>');
+   ```
+   User ids are in Dashboard → Authentication → Users.
+
+**Visibility is enforced in the database, not the UI.** `who = 'me'` means private to whoever wrote it; because that lives in a `SELECT` policy, a private row is invisible to the partner in every query including `count(*)`. `who = 'maddie'` and `who = 'both'` are visible to both. A partner can edit or delete a shared item but cannot convert it into a private one.
+
 ### Layout
 
 | Path | What it is |
@@ -24,6 +39,8 @@ npm run dev
 | `src/styles/organic-styles.css` | The Organic design system — tokens + component classes. Imported in `main.tsx`. Source of truth for every value below. |
 | `src/index.css` | App base only: reset, the 402px centered column, focus ring. |
 | `src/types.ts` | The data model from this doc. |
+| `src/store/` | `MilestoneStore` is the seam; `localStore.ts` and `supabaseStore.ts` implement it. |
+| `supabase/migrations/` | Schema and row-level security. Run in the Supabase SQL editor. |
 | `design/` | Design references — prototypes, screenshots, mockup frame. Not built or linted. |
 
 ## About the Design Files

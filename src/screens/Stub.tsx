@@ -1,4 +1,5 @@
 import { ChevronLeft } from 'lucide-react'
+import type { ReactNode } from 'react'
 import styles from './Screen.module.css'
 
 /**
@@ -9,11 +10,13 @@ export function Stub({
   title,
   note,
   onBack,
+  children,
 }: {
   title: string
   note: string
   /** Screens without the tab bar need their own way out. */
   onBack?: () => void
+  children?: ReactNode
 }) {
   return (
     <div className={styles.screen}>
@@ -27,6 +30,7 @@ export function Stub({
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.tagline}>{note}</div>
       </div>
+      {children}
     </div>
   )
 }
