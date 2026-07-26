@@ -1,0 +1,43 @@
+/* App base. Every value here comes from the tokens in ./styles/organic-styles.css —
+   never hard-code a color, radius or font the tokens already carry. */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Phone-first: the design canvas is 402px wide. Wider viewports just center
+   the column rather than growing a desktop layout. */
+#root {
+  max-width: 402px;
+  margin-inline: auto;
+  position: relative;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

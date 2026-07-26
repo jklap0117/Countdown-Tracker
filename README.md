@@ -5,14 +5,35 @@ A personal milestone / countdown app for iPhone, shared between two people (Jord
 
 Target stack per the user: built by Claude Code, deployed free on **Netlify** (so a static-hosted web app — React + Vite is the natural fit; installable as a PWA so it lives on the home screen). The iOS widget is a native capability — see "iOS widget" below for what's actually shippable.
 
+## Getting started
+
+React + Vite + TypeScript. Requires Node 20+.
+
+```bash
+npm install
+npm run dev
+```
+
+`npm run build` typechecks and builds to `dist/`; `npm run preview` serves that build; `npm run lint` runs oxlint. Netlify config is in `netlify.toml` (build `npm run build`, publish `dist`, SPA redirect).
+
+### Layout
+
+| Path | What it is |
+| --- | --- |
+| `src/` | The app. `App.tsx` is still a scaffold placeholder — replace it with the Upcoming screen. |
+| `src/styles/organic-styles.css` | The Organic design system — tokens + component classes. Imported in `main.tsx`. Source of truth for every value below. |
+| `src/index.css` | App base only: reset, the 402px centered column, focus ring. |
+| `src/types.ts` | The data model from this doc. |
+| `design/` | Design references — prototypes, screenshots, mockup frame. Not built or linted. |
+
 ## About the Design Files
 The files in this bundle are **design references created in HTML** — prototypes showing intended look and behavior. They are *not* production code to lift directly. `.dc.html` files use a bespoke streaming-component runtime that will not exist in your codebase.
 
 Your task is to **recreate these designs in a real environment**: pick the framework (React + Vite + TypeScript recommended for a Netlify static deploy), and rebuild the screens faithfully using its idioms. `organic-styles.css` (the design system stylesheet) **can** be used as-is — it is plain CSS custom properties plus component classes, and is the source of truth for every color, font, radius and shadow.
 
 Open the prototypes in a browser to interact with them:
-- `Milestone App.dc.html` — **the app**: the direction to build. Fully interactive: tab nav, filters, add flow, detail, delete, sharing setup, widget bucket picker.
-- `Milestone Tracker (explorations).dc.html` — earlier explorations (three main-page layouts labelled 1a/1b/1c, plus add, detail and widget studies). **1a was chosen.** 1b (month bands) and 1c (timeline spine) are reference only — do not build them.
+- `design/Milestone App.dc.html` — **the app**: the direction to build. Fully interactive: tab nav, filters, add flow, detail, delete, sharing setup, widget bucket picker.
+- `design/Milestone Tracker (explorations).dc.html` — earlier explorations (three main-page layouts labelled 1a/1b/1c, plus add, detail and widget studies). **1a was chosen.** 1b (month bands) and 1c (timeline spine) are reference only — do not build them.
 
 ## Fidelity
 **High-fidelity.** Colors, typography, spacing, radii and interactions are final. Recreate pixel-perfectly against the tokens in `organic-styles.css`. Device chrome in the prototypes (bezel, status bar, home indicator) is a mockup frame only — do not build it.
@@ -207,8 +228,8 @@ Copy tone throughout is **excited / anticipatory** but never cute — "things to
 ## Files in this bundle
 | File | What it is |
 | --- | --- |
-| `Milestone App.dc.html` | The app prototype — build this. Open in a browser and click through it. |
-| `Milestone Tracker (explorations).dc.html` | Earlier explorations; 1a chosen, 1b/1c reference only. |
-| `organic-styles.css` | The Organic design system stylesheet — tokens + component classes. Usable as-is. |
-| `ios-frame.jsx` | Device mockup frame used by the prototypes. **Not part of the product.** |
-| `screens/` | Screenshots of each screen: upcoming, past, sharing, add milestone, detail. The device bezel and status bar are mockup chrome only. |
+| `design/Milestone App.dc.html` | The app prototype — build this. Open in a browser and click through it. |
+| `design/Milestone Tracker (explorations).dc.html` | Earlier explorations; 1a chosen, 1b/1c reference only. |
+| `src/styles/organic-styles.css` | The Organic design system stylesheet — tokens + component classes. Usable as-is. |
+| `design/ios-frame.jsx` | Device mockup frame used by the prototypes. **Not part of the product.** |
+| `design/screens/` | Screenshots of each screen: upcoming, past, sharing, add milestone, detail. The device bezel and status bar are mockup chrome only. |
