@@ -1,46 +1,49 @@
-import { Calendar, Clock, Users } from 'lucide-react'
+import { Fab } from './components/Fab'
+import { TabBar } from './components/TabBar'
+import { Stub } from './screens/Stub'
+import { Upcoming } from './screens/Upcoming'
+import { useApp } from './store/AppContext'
 
-/**
- * Scaffold placeholder. Nothing here is from the design — it exists to confirm
- * the toolchain, fonts and design tokens are wired up. Replace it with the
- * Upcoming screen (README.md → "Screens").
- */
+/** Chrome is hidden on Detail and Add — they are pushed/modal screens. */
+const CHROME_SCREENS = new Set(['upcoming', 'past', 'share'])
+
 export default function App() {
+  const { state, dispatch } = useApp()
+  const showChrome = CHROME_SCREENS.has(state.screen)
+
   return (
-    <main style={{ padding: '58px 20px' }}>
-      <h1 style={{ font: '400 34px/1.12 var(--font-heading)', margin: 0 }}>
-        Coming up
-      </h1>
-      <p
-        style={{
-          font: '400 13px/1.5 var(--font-body)',
-          color: 'var(--color-neutral-600)',
-          margin: '6px 0 0',
-        }}
-      >
-        Scaffold is running — no screens built yet.
-      </p>
+    <>
+      {state.screen === 'upcoming' && <Upcoming />}
+      {state.screen === 'past' && (
+        <Stub title="Looking back" note="The Past screen isn't built yet." />
+      )}
+      {state.screen === 'share' && (
+        <Stub title="Sharing" note="The Sharing screen isn't built yet." />
+      )}
+      {state.screen === 'detail' && (
+        <Stub
+          title="Detail"
+          note="The Detail screen isn't built yet."
+          onBack={() => dispatch({ type: 'screen/set', screen: 'upcoming' })}
+        />
+      )}
+      {state.screen === 'add' && (
+        <Stub
+          title="New milestone"
+          note="The Add screen isn't built yet."
+          onBack={() => dispatch({ type: 'screen/set', screen: 'upcoming' })}
+        />
+      )}
 
-      <div style={{ display: 'flex', gap: 24, marginTop: 'var(--space-8)' }}>
-        {[Calendar, Clock, Users].map((Icon, i) => (
-          <Icon key={i} size={23} strokeWidth={2.75} color="var(--color-accent-700)" />
-        ))}
-      </div>
-
-      <div
-        style={{
-          marginTop: 'var(--space-6)',
-          padding: 20,
-          background: 'var(--color-surface)',
-          borderRadius: 28,
-        }}
-      >
-        <p style={{ font: '400 13px/1.6 var(--font-body)', margin: 0 }}>
-          Tokens, Caprasimo/Figtree and Lucide are loaded. Build the real screens
-          against <code>src/styles/organic-styles.css</code> and the prototypes in{' '}
-          <code>design/</code>.
-        </p>
-      </div>
-    </main>
+      {showChrome && (
+        <>
+          <Fab onClick={() => dispatch({ type: 'screen/set', screen: 'add' })} />
+          <TabBar
+            screen={state.screen}
+            onChange={(screen) => dispatch({ type: 'screen/set', screen })}
+          />
+        </>
+      )}
+    </>
   )
 }

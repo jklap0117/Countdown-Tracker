@@ -1,0 +1,27 @@
+.stack {
+  display: flex;
+  flex: none;
+}
+
+.avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: var(--avatar-font);
+  line-height: 1;
+  color: #fff;
+  background: var(--avatar-color);
+  /* A ring in the surrounding background, so overlapping avatars read as
+     separate discs rather than one blob. */
+  box-shadow: 0 0 0 var(--avatar-ring) var(--avatar-ring-color);
+}
+
+.avatar + .avatar {
+  margin-left: var(--avatar-overlap);
+}

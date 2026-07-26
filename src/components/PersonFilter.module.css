@@ -1,0 +1,79 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 0;
+}
+
+/* "All" sits outside the segmented track on purpose — it is the superset, not
+   a fourth peer, so it gets a different shape of control. */
+.all {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--color-neutral-400);
+  color: var(--color-neutral-700);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.all:hover {
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
+.allActive {
+  background: var(--color-neutral-900);
+  border-color: transparent;
+  color: var(--color-bg);
+}
+
+.allActive:hover {
+  background: var(--color-neutral-800);
+}
+
+.track {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--color-accent-2-200);
+}
+
+.opt {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-neutral-700);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.opt:hover:not(.optActive) {
+  background: color-mix(in srgb, var(--color-accent-2-600) 14%, transparent);
+}
+
+.optActive {
+  background: var(--color-accent-2-600);
+  color: #fff;
+}
+
+.optActive:hover {
+  background: var(--color-accent-2-700);
+}

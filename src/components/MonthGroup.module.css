@@ -1,0 +1,40 @@
+.group {
+  padding: 0 20px 22px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+/* An <h2> for structure, but the design system's h2 is 32px Caprasimo — this
+   header is 11px Figtree, so the heading defaults get overridden. */
+.heading {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: var(--color-divider);
+}
+
+.count {
+  font-size: 11px;
+  color: var(--color-neutral-500);
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

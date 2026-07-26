@@ -1,0 +1,41 @@
+.row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 20px 16px;
+  scrollbar-width: none;
+}
+
+.row::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.pill {
+  flex: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-divider);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pill:hover:not(.active) {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.active {
+  background: var(--color-accent);
+  border-color: transparent;
+  color: var(--color-bg);
+}
+
+.active:hover {
+  background: var(--color-accent-600);
+}

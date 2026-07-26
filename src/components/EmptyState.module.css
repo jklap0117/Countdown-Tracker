@@ -1,0 +1,25 @@
+.empty {
+  padding: 44px 20px 0;
+  text-align: center;
+}
+
+.disc {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: var(--empty-disc, var(--color-accent-2-200));
+  margin: 0 auto 14px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--color-neutral-600);
+  margin-top: 4px;
+}

@@ -1,0 +1,53 @@
+/* The shared scroller for Upcoming / Past / Sharing. Top padding clears the
+   status bar, bottom clears the tab bar and the FAB. */
+.screen {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  padding: 58px 0 150px;
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.header {
+  padding: 0 20px 4px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 34px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 2px;
+}
+
+.tagline {
+  font-size: 13px;
+  color: var(--color-neutral-600);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 20px 14px;
+  padding: 8px 14px 8px 10px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.back:hover {
+  background: var(--color-neutral-300);
+}
