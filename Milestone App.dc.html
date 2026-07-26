@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="stylesheet" href="_ds/organic-cfd2560d-68f7-418b-8aea-0d344f5576f8/styles.css">
+<script src="_ds/organic-cfd2560d-68f7-418b-8aea-0d344f5576f8/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#efe4d0}
+.scr::-webkit-scrollbar{width:0;height:0}
+</style></helmet>
+
+<div style="min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;background:#efe4d0">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+<sc-if value="{{ isUpcoming }}" hint-placeholder-val="{{ true }}">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 150px">
+  <div style="padding:0 20px 4px">
+    <h1 style="font-size:34px;margin:0 0 2px">Coming up</h1>
+    <div style="font-size:13px;color:var(--color-neutral-600)">{{ tagline }}</div>
+  </div>
+  <div style="padding:14px 20px 0;display:flex;align-items:center;gap:10px">
+    <button style="{{ allStyle }}" onClick="{{ selectAll }}">
+      <span style="display:flex">
+        <sc-for list="{{ allDots }}" as="d" hint-placeholder-count="2">
+          <span style="{{ d.style }}">{{ d.t }}</span>
+        </sc-for>
+      </span>All
+    </button>
+    <div style="flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--color-accent-2-200)">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+        <button style="{{ p.style }}" onClick="{{ p.onClick }}">{{ p.name }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div class="scr" style="display:flex;gap:8px;overflow-x:auto;padding:12px 20px 16px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+      <button style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.name }}</button>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hero }}" hint-placeholder-val="{{ true }}">
+  <div style="padding:0 20px 24px">
+    <div onClick="{{ hero.open }}" style="position:relative;overflow:hidden;background:var(--color-accent);color:var(--color-bg);border-radius:28px;padding:16px 18px 15px;box-shadow:var(--shadow-md);cursor:pointer">
+      <div style="position:absolute;right:-46px;top:-62px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.11)"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:8px">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;flex:1">Up next · {{ hero.catName }}</div>
+        <div style="display:flex">
+          <sc-for list="{{ hero.whoInitials }}" as="a" hint-placeholder-count="2">
+            <div style="{{ a.style }}">{{ a.t }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;display:flex;align-items:flex-end;gap:12px;margin-top:8px">
+        <div style="display:flex;align-items:flex-end;gap:6px;flex:none">
+          <div style="font-family:var(--font-heading);font-size:52px;line-height:.82">{{ hero.big }}</div>
+          <div style="font-family:var(--font-heading);font-size:14px;line-height:1.7;opacity:.9">{{ hero.unit }}</div>
+        </div>
+        <div style="flex:1;min-width:0;text-align:right">
+          <div style="font-family:var(--font-heading);font-size:19px;line-height:1.15">{{ hero.title }}</div>
+          <div style="font-size:12px;opacity:.88;margin-top:2px">{{ hero.when }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+    <div style="padding:0 20px 22px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">{{ g.upper }}</div>
+        <div style="flex:1;height:1px;background:var(--color-divider)"></div>
+        <div style="font-size:11px;color:var(--color-neutral-500)">{{ g.count }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+          <div onClick="{{ it.open }}" style="display:flex;align-items:center;gap:15px;padding:15px 8px;cursor:pointer;border-radius:22px" style-hover="background:rgba(32,30,29,.05)">
+            <div style="width:6px;height:52px;border-radius:999px;background:{{ it.color }};flex:none"></div>
+            <div style="flex:1;min-width:0">
+              <div style="font-family:var(--font-heading);font-size:19px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.title }}</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+                <div style="font-size:13px;color:var(--color-neutral-600);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.when }}</div>
+                <div style="display:flex;flex:none">
+                  <sc-for list="{{ it.whoInitials }}" as="a" hint-placeholder-count="1">
+                    <div style="{{ a.style }}">{{ a.t }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right;flex:none">
+              <div style="font-family:var(--font-heading);font-size:28px;line-height:1">{{ it.big }}</div>
+              <div style="font-size:11px;color:var(--color-neutral-600);letter-spacing:.04em">{{ it.unit }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+  <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:44px 20px 0;text-align:center">
+      <div style="width:74px;height:74px;border-radius:50%;background:var(--color-accent-2-200);margin:0 auto 14px"></div>
+      <div style="font-family:var(--font-heading);font-size:19px">Nothing on the horizon</div>
+      <div style="font-size:13px;color:var(--color-neutral-600);margin-top:4px">{{ emptyHint }}</div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPast }}" hint-placeholder-val="{{ false }}">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 150px">
+  <div style="padding:0 20px 4px">
+    <h1 style="font-size:34px;margin:0 0 2px">Looking back</h1>
+    <div style="font-size:13px;color:var(--color-neutral-600)">{{ pastTagline }}</div>
+  </div>
+  <div style="padding:14px 20px 0;display:flex;align-items:center;gap:10px">
+    <button style="{{ allStyle }}" onClick="{{ selectAll }}">
+      <span style="display:flex">
+        <sc-for list="{{ allDots }}" as="d" hint-placeholder-count="2">
+          <span style="{{ d.style }}">{{ d.t }}</span>
+        </sc-for>
+      </span>All
+    </button>
+    <div style="flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--color-accent-2-200)">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+        <button style="{{ p.style }}" onClick="{{ p.onClick }}">{{ p.name }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="padding:18px 20px 0">
+    <sc-for list="{{ pastGroups }}" as="g" hint-placeholder-count="2">
+      <div style="padding-bottom:22px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">{{ g.upper }}</div>
+          <div style="flex:1;height:1px;background:var(--color-divider)"></div>
+          <div style="font-size:11px;color:var(--color-neutral-500)">{{ g.count }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+            <div onClick="{{ it.open }}" style="display:flex;align-items:center;gap:15px;padding:13px 8px;cursor:pointer;border-radius:22px;opacity:.72" style-hover="background:rgba(32,30,29,.05);opacity:1">
+              <div style="width:6px;height:42px;border-radius:999px;background:{{ it.color }};flex:none;opacity:.55"></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-heading);font-size:17px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.title }}</div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+                  <div style="font-size:12px;color:var(--color-neutral-600)">{{ it.when }}</div>
+                  <div style="display:flex;flex:none">
+                    <sc-for list="{{ it.whoInitials }}" as="a" hint-placeholder-count="1">
+                      <div style="{{ a.style }}">{{ a.t }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:var(--color-neutral-600);flex:none;text-align:right">{{ it.ago }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <sc-if value="{{ pastEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:34px 20px 0;text-align:center">
+        <div style="width:74px;height:74px;border-radius:50%;background:var(--color-neutral-200);margin:0 auto 14px"></div>
+        <div style="font-family:var(--font-heading);font-size:19px">No history yet</div>
+        <div style="font-size:13px;color:var(--color-neutral-600);margin-top:4px">Milestones move here the day after they happen.</div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isShare }}" hint-placeholder-val="{{ false }}">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 150px">
+  <div style="padding:0 20px 18px">
+    <h1 style="font-size:34px;margin:0 0 2px">Sharing</h1>
+    <div style="font-size:13px;color:var(--color-neutral-600)">{{ shareStatus }}</div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="background:var(--color-surface);border-radius:28px;padding:20px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+        <div style="width:62px;height:62px;border-radius:50%;background:var(--color-accent-600);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:24px;box-shadow:0 0 0 4px var(--color-surface)">J</div>
+        <div style="width:62px;height:62px;border-radius:50%;background:var(--color-accent-2-600);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:24px;box-shadow:0 0 0 4px var(--color-surface);margin-left:-16px">M</div>
+      </div>
+      <sc-if value="{{ linked }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family:var(--font-heading);font-size:21px">{{ pairTitle }}</div>
+        <div style="font-size:13px;color:var(--color-neutral-600);margin-top:4px;max-width:270px;margin-left:auto;margin-right:auto">Shared milestones appear on both phones and in both widgets, live.</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+          <span class="tag tag-accent-2" style="font-size:11px">{{ sharedCount }}</span>
+          <span class="tag tag-neutral" style="font-size:11px">Synced just now</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notLinked }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:var(--font-heading);font-size:21px">Invite {{ partnerName }}</div>
+        <div style="font-size:13px;color:var(--color-neutral-600);margin-top:4px;max-width:270px;margin-left:auto;margin-right:auto">Send a link. Once she joins, anything tagged Shared syncs to you both.</div>
+      </sc-if>
+      <button class="btn btn-primary btn-block" style="height:48px;font-size:16px;margin-top:18px" onClick="{{ toggleLinked }}">{{ shareCta }}</button>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">What she can see</div>
+    <div style="background:var(--color-surface);border-radius:28px;padding:6px 18px">
+      <sc-for list="{{ shareRules }}" as="r" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--color-divider)">
+          <div style="width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:13px;color:#fff;background:{{ r.color }}">{{ r.dot }}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px">{{ r.title }}</div>
+            <div style="font-size:11px;color:var(--color-neutral-600);margin-top:1px">{{ r.sub }}</div>
+          </div>
+          <div onClick="{{ r.toggle }}" style="{{ r.switch }}"><div style="{{ r.knob }}"></div></div>
+        </div>
+      </sc-for>
+      <div style="padding:14px 0;font-size:11px;color:var(--color-neutral-600)">Private milestones stay on your phone — she'll never see them, even in the count.</div>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Home screen widget</div>
+    <div style="background:var(--color-surface);border-radius:28px;padding:18px">
+      <div style="font-size:13px;color:var(--color-neutral-700);margin-bottom:12px">Choose which bucket the next-three widget follows.</div>
+      <div style="display:flex;gap:6px;margin-bottom:16px">
+        <sc-for list="{{ widgetBuckets }}" as="b" hint-placeholder-count="4">
+          <button style="{{ b.style }}" onClick="{{ b.onClick }}">{{ b.name }}</button>
+        </sc-for>
+      </div>
+      <div style="border-radius:26px;padding:16px;background:linear-gradient(135deg,#f7edda 0%,#e0cdab 100%)">
+        <div style="border-radius:22px;background:rgba(245,234,216,.88);box-shadow:var(--shadow-sm);padding:14px 16px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+            <div style="font-family:var(--font-heading);font-size:13px">{{ widgetTitle }}</div>
+            <div style="font-size:10px;color:var(--color-neutral-600)">{{ widgetSub }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ widget }}" as="w" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:11px">
+                <div style="width:4px;height:28px;border-radius:999px;background:{{ w.color }};flex:none"></div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-heading);font-size:13px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ w.title }}</div>
+                  <div style="font-size:10px;color:var(--color-neutral-600)">{{ w.when }} · {{ w.whoLabel }}</div>
+                </div>
+                <div style="text-align:right;flex:none">
+                  <div style="font-family:var(--font-heading);font-size:16px;line-height:1">{{ w.big }}</div>
+                  <div style="font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ w.unit }}</div>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ widgetEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11px;color:var(--color-neutral-600);padding:8px 0">Nothing in this bucket yet.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--color-neutral-600);margin-top:12px">Long-press your home screen → add the widget → pick this bucket there too.</div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:52px 0 60px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 0">
+    <div onClick="{{ back }}" style="width:38px;height:38px;border-radius:50%;background:var(--color-surface);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--color-neutral-300)">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--color-text)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    </div>
+    <div style="font-size:14px;color:var(--color-accent-700);cursor:pointer">Edit</div>
+  </div>
+  <div style="padding:14px 20px 0;text-align:center">
+    <div style="position:relative;width:250px;height:250px;margin:0 auto">
+      <svg width="250" height="250" viewBox="0 0 250 250" style="transform:rotate(-90deg)">
+        <circle cx="125" cy="125" r="112" fill="none" stroke="var(--color-neutral-300)" stroke-width="14"></circle>
+        <circle cx="125" cy="125" r="112" fill="none" stroke="{{ detail.color }}" stroke-width="14" stroke-linecap="round" stroke-dasharray="{{ detail.dash }}"></circle>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div style="font-family:var(--font-heading);font-size:74px;line-height:.9">{{ detail.absBig }}</div>
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-600);margin-top:6px">{{ detail.dayWord }}</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:26px;margin-top:18px">
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.hrs }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">hours</div></div>
+      <div style="width:1px;background:var(--color-divider)"></div>
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.mins }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">minutes</div></div>
+      <div style="width:1px;background:var(--color-divider)"></div>
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.weeks }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">weeks</div></div>
+    </div>
+  </div>
+  <div style="padding:26px 20px 0;text-align:center">
+    <div style="display:flex;justify-content:center;gap:6px">
+      <span class="tag tag-accent" style="font-size:11px">{{ detail.catName }}</span>
+      <span class="tag tag-accent-2" style="font-size:11px">{{ detail.whoLabel }}</span>
+    </div>
+    <h2 style="font-size:30px;margin:12px 0 4px;text-wrap:pretty">{{ detail.title }}</h2>
+    <div style="font-size:14px;color:var(--color-neutral-600)">{{ detail.longWhen }}</div>
+  </div>
+  <div style="padding:24px 20px 0">
+    <div style="background:var(--color-surface);border-radius:28px;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:4px">Notes</div>
+        <div style="font-size:14px;line-height:1.5">{{ detail.notes }}</div>
+      </div>
+      <div style="height:1px;background:var(--color-divider)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:14px">{{ detail.metaLabel }}</div>
+        <div style="font-size:13px;color:var(--color-neutral-600)">{{ detail.metaValue }}</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:16px 20px 0;display:flex;gap:10px">
+    <button class="btn btn-secondary" style="flex:1;height:46px">{{ detail.primaryAction }}</button>
+    <button class="btn btn-secondary" style="flex:1;height:46px;color:var(--color-accent-700)">Share</button>
+  </div>
+  <div style="padding:20px 20px 0;text-align:center">
+    <button class="btn btn-ghost" style="font-size:13px;color:var(--color-neutral-600)" onClick="{{ removeItem }}">Delete milestone</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAdd }}" hint-placeholder-val="{{ false }}">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 118px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px 10px">
+    <div onClick="{{ back }}" style="font-size:14px;color:var(--color-neutral-600);cursor:pointer">Cancel</div>
+    <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-500)">New milestone</div>
+    <div style="width:44px"></div>
+  </div>
+  <div style="padding:6px 20px 0">
+    <input class="input" value="{{ draftTitle }}" onChange="{{ setTitle }}" placeholder="What's coming up?" style="background:transparent;border:none;border-radius:0;padding:0;font-family:var(--font-heading);font-size:28px;min-height:44px;width:100%">
+    <div style="height:1px;background:var(--color-divider);margin:2px 0 24px"></div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Category</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="7">
+        <button style="{{ c.style }}" onClick="{{ c.onClick }}">{{ c.name }}</button>
+      </sc-for>
+      <button style="display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:999px;border:1px dashed var(--color-neutral-400);background:transparent;font:inherit;font-size:13px;color:var(--color-neutral-600);cursor:pointer" style-hover="border-color:var(--color-accent);color:var(--color-accent-700)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New
+      </button>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Who's it for</div>
+    <div style="display:flex;gap:8px">
+      <sc-for list="{{ whoChips }}" as="w" hint-placeholder-count="3">
+        <button style="{{ w.style }}" onClick="{{ w.onClick }}">{{ w.name }}</button>
+      </sc-for>
+    </div>
+    <div style="font-size:11px;color:var(--color-neutral-600);margin-top:8px">{{ whoHint }}</div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">When</div>
+    <div style="background:var(--color-surface);border-radius:26px;padding:16px 18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div style="font-size:14px">Date</div>
+        <input type="date" class="input" value="{{ draftDate }}" onChange="{{ setDate }}" style="width:auto;background:var(--color-bg);border-color:transparent;font-family:var(--font-heading);font-size:15px;color:var(--color-accent-700)">
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin:14px 0"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:14px">Add a time</div>
+          <div style="font-size:11px;color:var(--color-neutral-600);margin-top:1px">Optional — leave off for all-day</div>
+        </div>
+        <div onClick="{{ toggleTime }}" style="{{ switchStyle }}"><div style="{{ knobStyle }}"></div></div>
+      </div>
+      <sc-if value="{{ hasTime }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--color-divider)">
+          <div style="font-size:14px">Time</div>
+          <input type="time" class="input" value="{{ draftTime }}" onChange="{{ setTime }}" style="width:auto;background:var(--color-bg);border-color:transparent;font-family:var(--font-heading);font-size:15px;color:var(--color-accent-700)">
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <sc-for list="{{ quickDates }}" as="q" hint-placeholder-count="3">
+          <div onClick="{{ q.onClick }}" style="padding:7px 13px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-800);font-size:12px;cursor:pointer" style-hover="background:var(--color-accent-200)">{{ q.name }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Extras</div>
+    <div style="background:var(--color-surface);border-radius:26px;padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+      <input class="input" value="{{ draftNotes }}" onChange="{{ setNotes }}" placeholder="Notes — flight numbers, who's coming…" style="background:var(--color-bg);border-color:transparent;font-size:13px">
+      <input class="input" placeholder="Link (trailer, booking, tickets)" style="background:var(--color-bg);border-color:transparent;font-size:13px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:14px">Remind me</div>
+          <div style="font-size:11px;color:var(--color-neutral-600);margin-top:1px">One week before, 9:00 AM</div>
+        </div>
+        <div onClick="{{ toggleRemind }}" style="{{ remindSwitch }}"><div style="{{ remindKnob }}"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:14px 20px 30px;background:linear-gradient(to top,var(--color-bg) 62%,rgba(245,234,216,0));z-index:70">
+  <button class="btn btn-primary btn-block" style="height:52px;font-size:17px;margin:0" onClick="{{ save }}">{{ saveLabel }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;right:20px;bottom:110px;width:60px;height:60px;border-radius:50%;background:var(--color-accent);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:70" onClick="{{ openAdd }}" style-hover="background:var(--color-accent-600)">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f5ead8" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;height:96px;padding:10px 24px 0;display:flex;align-items:flex-start;justify-content:space-around;background:rgba(245,234,216,.92);backdrop-filter:blur(16px);border-top:1px solid var(--color-divider);z-index:65">
+  <div onClick="{{ goUpcoming }}" style="{{ navUpcoming }}">
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="5"></rect><path d="M8 3v4M16 3v4M3 11h18"></path></svg>
+    <div style="font-size:10px;letter-spacing:.04em">Upcoming</div>
+  </div>
+  <div onClick="{{ goPast }}" style="{{ navPast }}">
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+    <div style="font-size:10px;letter-spacing:.04em">Past</div>
+  </div>
+  <div onClick="{{ goShare }}" style="{{ navShare }}">
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"></circle><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"></path><path d="M16 5.5a3.4 3.4 0 010 6.4M18 19c0-2.4-1-4.1-2.6-5"></path></svg>
+    <div style="font-size:10px;letter-spacing:.04em">Sharing</div>
+  </div>
+</div>
+</sc-if>
+
+</x-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Jordan&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;People&quot;},&quot;partnerName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Maddie&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;People&quot;}}">
+const CATS = [
+  { id: 'trips', name: 'Trips', color: '#c67139', tint: '#ffe1d0', deep: '#8c491a' },
+  { id: 'tv', name: 'TV', color: '#7a8a5e', tint: '#e1eecc', deep: '#56633f' },
+  { id: 'movies', name: 'Movies', color: '#8c491a', tint: '#ffe1d0', deep: '#643312' },
+  { id: 'sports', name: 'Sports', color: '#56633f', tint: '#e1eecc', deep: '#3d472b' },
+  { id: 'concerts', name: 'Concerts', color: '#b2622d', tint: '#fff2eb', deep: '#8c491a' },
+  { id: 'birthdays', name: 'Birthdays', color: '#f6a06b', tint: '#fff2eb', deep: '#8c491a' },
+  { id: 'goals', name: 'Goals', color: '#8fa073', tint: '#f0fae1', deep: '#56633f' },
+];
+
+const SEED = [
+  { id: 1, title: 'Weekend in Asheville', cat: 'trips', date: '2026-07-29T15:00', time: true, who: 'both', notes: 'Cabin off the Blue Ridge Parkway. Check in after 4pm.' },
+  { id: 2, title: "Mom's Birthday", cat: 'birthdays', date: '2026-08-14', time: false, who: 'me', notes: 'She wants the pottery class, not another candle.' },
+  { id: 3, title: 'NFL Season Kickoff', cat: 'sports', date: '2026-09-09T20:20', time: true, who: 'me', notes: 'Thursday night opener.' },
+  { id: 4, title: 'Hozier at The Anthem', cat: 'concerts', date: '2026-09-26T19:30', time: true, who: 'maddie', notes: 'Doors at 7. Tickets in the wallet app.' },
+  { id: 5, title: 'Australia Trip', cat: 'trips', date: '2026-10-03', time: false, who: 'both', notes: 'Sydney → Cairns → Melbourne. Reef day trip still to sort.' },
+  { id: 6, title: 'Apothecary Diaries S3', cat: 'tv', date: '2026-10-17', time: false, who: 'me', notes: 'Weekly episodes, Saturday drops.' },
+  { id: 7, title: 'First half marathon', cat: 'goals', date: '2026-11-08T07:30', time: true, who: 'maddie', notes: 'Wave 2 start. 16 weeks of training in.' },
+  { id: 8, title: 'Dune: Part Three', cat: 'movies', date: '2026-12-18', time: false, who: 'both', notes: 'IMAX or nothing.' },
+  { id: 9, title: 'Harry Potter series premiere', cat: 'tv', date: '2026-12-25', time: false, who: 'both', notes: 'Christmas Day drop.' },
+  { id: 10, title: 'Outer Banks beach week', cat: 'trips', date: '2026-06-20', time: false, who: 'both', notes: 'Same house as last year.' },
+  { id: 11, title: "Dad's 60th", cat: 'birthdays', date: '2026-05-30', time: false, who: 'me', notes: 'Surprise dinner — 14 people.' },
+  { id: 12, title: 'Severance finale', cat: 'tv', date: '2026-07-10', time: false, who: 'both', notes: 'No spoilers until we both watch.' },
+  { id: 13, title: 'Maddie’s gallery show', cat: 'goals', date: '2026-07-18T18:00', time: true, who: 'maddie', notes: 'Opening night, six pieces hung.' },
+];
+
+const WHO = {
+  me: { label: 'Jordan', initials: ['J'] },
+  maddie: { label: 'Maddie', initials: ['M'] },
+  both: { label: 'Jordan + Maddie', initials: ['J', 'M'] },
+};
+
+const PEOPLE = [
+  { id: 'me', name: 'Jordan' },
+  { id: 'maddie', name: 'Maddie' },
+  { id: 'both', name: 'Shared' },
+];
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const LONGDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function pd(s) { return new Date(s.length === 10 ? s + 'T00:00' : s); }
+function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+
+function pill(active) {
+  return 'flex:none;padding:9px 16px;border-radius:999px;border:1px solid ' +
+    (active ? 'transparent' : 'var(--color-divider)') +
+    ';background:' + (active ? 'var(--color-accent)' : 'transparent') +
+    ';color:' + (active ? 'var(--color-bg)' : 'var(--color-text)') +
+    ';font-family:var(--font-body);font-size:13px;line-height:1;cursor:pointer;white-space:nowrap';
+}
+
+const SWITCH = on => 'width:50px;height:30px;flex:none;border-radius:999px;padding:3px;cursor:pointer;display:flex;justify-content:' +
+  (on ? 'flex-end' : 'flex-start') + ';background:' + (on ? 'var(--color-accent)' : 'var(--color-neutral-400)') + ';transition:background .2s';
+const KNOB = 'width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm)';
+
+class Component extends DCLogic {
+  state = {
+    items: SEED,
+    screen: 'upcoming',
+    person: 'all',
+    cat: 'all',
+    selected: null,
+    now: new Date('2026-07-26T09:12:00'),
+    linked: true,
+    widgetPerson: 'all',
+    rules: { upcoming: true, past: true, reminders: false },
+    draft: { title: '', cat: 'trips', who: 'both', date: '2026-10-03', time: '19:30', hasTime: false, remind: true, notes: '' },
+  };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: new Date(this.state.now.getTime() + 60000) }), 60000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  fmtTime(d) {
+    let h = d.getHours(); const m = String(d.getMinutes()).padStart(2, '0');
+    const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    return h + ':' + m + ' ' + ap;
+  }
+
+  decorate(it) {
+    const d = pd(it.date);
+    const n = this.state.now;
+    const ms = d - n;
+    const totalH = ms / 3600000;
+    const calDays = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(n.getFullYear(), n.getMonth(), n.getDate())) / 86400000);
+    const days = it.time ? Math.floor(totalH / 24) : calDays;
+    const hours = Math.floor(totalH - Math.floor(totalH / 24) * 24);
+    const c = CATS.find(x => x.id === it.cat);
+    const w = WHO[it.who];
+    const past = ms < 0;
+    const agoDays = Math.abs(calDays);
+    return {
+      ...it,
+      color: c.color, tint: c.tint, deep: c.deep, catName: c.name,
+      whoLabel: w.label,
+      whoInitials: w.initials.map((t, i) => ({
+        t,
+        style: 'width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:11px;color:#fff;background:' +
+          (t === 'M' ? 'var(--color-accent-2-600)' : 'var(--color-accent-600)') +
+          ';box-shadow:0 0 0 2px var(--color-bg);margin-left:' + (i ? '-8px' : '0'),
+      })),
+      past, days, hours,
+      when: DAYS[d.getDay()] + ', ' + SHORT[d.getMonth()] + ' ' + d.getDate() + (it.time ? ' · ' + this.fmtTime(d) : ''),
+      longWhen: LONGDAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + (it.time ? ' at ' + this.fmtTime(d) : ''),
+      big: String(days),
+      unit: days >= 7 ? 'days' : (!it.time ? (days === 0 ? 'today' : days === 1 ? 'day' : 'days')
+        : (days === 0 ? 'today · ' + hours + 'h' : 'days ' + hours + 'h')),
+      ago: agoDays === 0 ? 'today' : agoDays === 1 ? 'yesterday' : agoDays < 30 ? agoDays + ' days ago' :
+        Math.round(agoDays / 30) + (Math.round(agoDays / 30) === 1 ? ' month ago' : ' months ago'),
+      monthKey: d.getFullYear() + '-' + d.getMonth(),
+      label: MONTHS[d.getMonth()], year: String(d.getFullYear()),
+      open: () => this.setState({ selected: it.id, screen: 'detail' }),
+    };
+  }
+
+  matchPerson(i, p) {
+    return p === 'all' || (p === 'both' ? i.who === 'both' : i.who === p || i.who === 'both');
+  }
+
+  group(list, upperFirst) {
+    const gs = [];
+    list.forEach(it => {
+      let g = gs.find(x => x.key === it.monthKey);
+      if (!g) { g = { key: it.monthKey, label: it.label, year: it.year, upper: it.label.toUpperCase() + ' ' + it.year, items: [] }; gs.push(g); }
+      g.items.push(it);
+    });
+    gs.forEach(g => { g.count = g.items.length === 1 ? '1 thing' : g.items.length + ' things'; });
+    return gs;
+  }
+
+  setDraft(patch) { this.setState({ draft: { ...this.state.draft, ...patch } }); }
+
+  save() {
+    const d = this.state.draft;
+    if (!d.title.trim()) return;
+    const item = {
+      id: Date.now(), title: d.title.trim(), cat: d.cat, who: d.who,
+      date: d.hasTime ? d.date + 'T' + d.time : d.date,
+      time: d.hasTime, notes: d.notes || 'No notes yet.',
+    };
+    this.setState({
+      items: [...this.state.items, item],
+      screen: 'upcoming',
+      draft: { title: '', cat: 'trips', who: 'both', date: '2026-10-03', time: '19:30', hasTime: false, remind: true, notes: '' },
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const userName = this.props.userName ?? 'Jordan';
+    const partnerName = this.props.partnerName ?? 'Maddie';
+    const all = s.items.map(i => this.decorate(i)).sort((a, b) => pd(a.date) - pd(b.date));
+    const upcoming = all.filter(i => !i.past);
+    const past = all.filter(i => i.past).reverse();
+
+    const byPersonCat = l => l.filter(i => this.matchPerson(i, s.person)).filter(i => s.cat === 'all' || i.cat === s.cat);
+    const list = byPersonCat(upcoming);
+    const pastList = past.filter(i => this.matchPerson(i, s.person));
+
+    const tabs = [{ id: 'all', name: 'All' }].concat(CATS.map(c => ({ id: c.id, name: c.name }))).map(t => ({
+      name: t.name, style: pill(s.cat === t.id), onClick: () => this.setState({ cat: t.id }),
+    }));
+
+    const allOn = s.person === 'all';
+    const allStyle = 'flex:none;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:999px;font-family:var(--font-heading);font-size:13px;line-height:1;cursor:pointer;border:1px solid ' +
+      (allOn ? 'transparent' : 'var(--color-neutral-400)') + ';background:' + (allOn ? 'var(--color-neutral-900)' : 'transparent') +
+      ';color:' + (allOn ? 'var(--color-bg)' : 'var(--color-neutral-700)');
+    const allDots = ['J', 'M'].map((t, i) => ({
+      t,
+      style: 'width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;background:' +
+        (t === 'M' ? 'var(--color-accent-2-600)' : 'var(--color-accent-600)') +
+        ';box-shadow:0 0 0 1.5px ' + (allOn ? 'var(--color-neutral-900)' : 'var(--color-bg)') + ';margin-left:' + (i ? '-5px' : '0'),
+    }));
+    const people = PEOPLE.map(x => {
+      const on = s.person === x.id;
+      return {
+        name: x.id === 'me' ? userName : x.id === 'maddie' ? partnerName : x.name,
+        onClick: () => this.setState({ person: x.id }),
+        style: 'flex:1;padding:8px 4px;border:none;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;background:' +
+          (on ? 'var(--color-accent-2-600)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--color-neutral-700)'),
+      };
+    });
+
+    // widget — follows its own bucket
+    const wBuckets = [{ id: 'all', name: 'All' }].concat(PEOPLE.map(p => ({ id: p.id, name: p.id === 'me' ? userName : p.id === 'maddie' ? partnerName : p.name })));
+    const widgetBuckets = wBuckets.map(b => {
+      const on = s.widgetPerson === b.id;
+      return {
+        name: b.name,
+        onClick: () => this.setState({ widgetPerson: b.id }),
+        style: 'flex:1;padding:8px 4px;border-radius:999px;border:1px solid ' + (on ? 'transparent' : 'var(--color-divider)') +
+          ';background:' + (on ? 'var(--color-neutral-900)' : 'transparent') + ';color:' + (on ? 'var(--color-bg)' : 'var(--color-neutral-700)') +
+          ';font:inherit;font-size:12px;cursor:pointer;white-space:nowrap',
+      };
+    });
+    const widget = upcoming.filter(i => this.matchPerson(i, s.widgetPerson)).slice(0, 3);
+    const wName = wBuckets.find(b => b.id === s.widgetPerson).name;
+
+    const detailRaw = all.find(i => i.id === s.selected) || all[0];
+    const target = pd(detailRaw.date);
+    const created = new Date(target.getTime() - 1000 * 60 * 60 * 24 * 200);
+    const pct = Math.max(0, Math.min(100, Math.round(((s.now - created) / (target - created)) * 100)));
+    const circ = 2 * Math.PI * 112;
+    const detMs = Math.abs(target - s.now);
+    const detail = {
+      ...detailRaw,
+      absBig: String(Math.abs(detailRaw.days)),
+      dayWord: detailRaw.past ? 'days ago' : 'days to go',
+      dash: (circ * (detailRaw.past ? 100 : pct) / 100).toFixed(1) + ' ' + circ.toFixed(1),
+      hrs: Math.floor((detMs % 86400000) / 3600000),
+      mins: Math.floor((detMs % 3600000) / 60000),
+      weeks: Math.floor(Math.abs(detailRaw.days) / 7),
+      metaLabel: detailRaw.past ? 'Happened' : 'Reminder',
+      metaValue: detailRaw.past ? detailRaw.ago : '1 week before',
+      primaryAction: detailRaw.past ? 'Add photos' : 'Add to calendar',
+    };
+
+    const d = s.draft;
+    const catChips = CATS.map(c => ({
+      name: c.name,
+      onClick: () => this.setDraft({ cat: c.id }),
+      style: 'padding:8px 15px;border-radius:999px;border:1px solid ' + (d.cat === c.id ? 'transparent' : 'var(--color-divider)') +
+        ';background:' + (d.cat === c.id ? c.color : 'transparent') + ';color:' + (d.cat === c.id ? '#fff' : 'var(--color-text)') +
+        ';font:inherit;font-size:13px;cursor:pointer',
+    }));
+    const whoChips = ['me', 'maddie', 'both'].map(id => {
+      const on = d.who === id;
+      const label = id === 'me' ? userName : id === 'maddie' ? partnerName : userName + ' + ' + partnerName;
+      return {
+        name: label,
+        onClick: () => this.setDraft({ who: id }),
+        style: 'flex:1;padding:10px 6px;border-radius:999px;border:1px solid ' + (on ? 'transparent' : 'var(--color-divider)') +
+          ';background:' + (on ? 'var(--color-accent-2-600)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--color-text)') +
+          ';font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+      };
+    });
+    const plus = n => { const x = new Date(s.now); x.setDate(x.getDate() + n); return iso(x); };
+    const quickDates = [
+      { name: 'This weekend', onClick: () => this.setDraft({ date: plus(6 - s.now.getDay()) }) },
+      { name: 'Next month', onClick: () => this.setDraft({ date: plus(30) }) },
+      { name: 'A year out', onClick: () => this.setDraft({ date: plus(365) }) },
+    ];
+
+    const ruleDefs = [
+      { key: 'upcoming', title: 'Shared upcoming milestones', sub: 'Everything tagged ' + userName + ' + ' + partnerName, dot: 'S', color: 'var(--color-accent-600)' },
+      { key: 'past', title: 'Shared history', sub: 'The Past tab, once things happen', dot: 'H', color: 'var(--color-accent-2-600)' },
+      { key: 'reminders', title: 'Her reminders ping me too', sub: 'Off by default — she may not want this', dot: 'R', color: 'var(--color-neutral-600)' },
+    ];
+    const shareRules = ruleDefs.map(r => ({
+      ...r,
+      switch: SWITCH(s.rules[r.key]), knob: KNOB,
+      toggle: () => this.setState({ rules: { ...s.rules, [r.key]: !s.rules[r.key] } }),
+    }));
+
+    const navStyle = on => 'display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px 12px;color:' +
+      (on ? 'var(--color-accent-700)' : 'var(--color-neutral-500)');
+
+    const sharedTotal = s.items.filter(i => i.who === 'both').length;
+
+    return {
+      isUpcoming: s.screen === 'upcoming', isPast: s.screen === 'past', isShare: s.screen === 'share',
+      isDetail: s.screen === 'detail', isAdd: s.screen === 'add',
+      showChrome: s.screen === 'upcoming' || s.screen === 'past' || s.screen === 'share',
+      partnerName,
+      tagline: list.length + (list.length === 1 ? ' thing' : ' things') + ' to look forward to',
+      pastTagline: pastList.length + (pastList.length === 1 ? ' milestone' : ' milestones') + ' already behind you',
+      tabs, allStyle, allDots, people, selectAll: () => this.setState({ person: 'all' }),
+      hero: list[0], groups: this.group(list.slice(1)), empty: list.length === 0,
+      emptyHint: s.person === 'both' ? 'Nothing shared yet — tag a milestone to both of you.' : 'Add something to look forward to.',
+      pastGroups: this.group(pastList), pastEmpty: pastList.length === 0,
+      detail, back: () => this.setState({ screen: s.screen === 'add' ? 'upcoming' : 'upcoming' }),
+      removeItem: () => this.setState({ items: s.items.filter(i => i.id !== detail.id), screen: 'upcoming', selected: null }),
+      goUpcoming: () => this.setState({ screen: 'upcoming' }),
+      goPast: () => this.setState({ screen: 'past' }),
+      goShare: () => this.setState({ screen: 'share' }),
+      openAdd: () => this.setState({ screen: 'add' }),
+      navUpcoming: navStyle(s.screen === 'upcoming'), navPast: navStyle(s.screen === 'past'), navShare: navStyle(s.screen === 'share'),
+      linked: s.linked, notLinked: !s.linked,
+      pairTitle: userName + ' & ' + partnerName,
+      shareStatus: s.linked ? 'Linked with ' + partnerName : 'Just you for now',
+      shareCta: s.linked ? 'Manage sharing' : 'Send ' + partnerName + ' an invite',
+      sharedCount: sharedTotal + ' shared milestones',
+      toggleLinked: () => this.setState({ linked: !s.linked }),
+      shareRules,
+      widgetBuckets, widget, widgetEmpty: widget.length === 0,
+      widgetTitle: 'Coming up', widgetSub: wName === 'All' ? 'Everything' : wName,
+      catChips, whoChips, quickDates,
+      whoHint: d.who === 'both' ? 'Syncs to ' + partnerName + "'s phone and widget." : d.who === 'maddie' ? "Hers — you'll still see it in All." : 'Private to you.',
+      draftTitle: d.title, setTitle: e => this.setDraft({ title: e.target.value }),
+      draftDate: d.date, setDate: e => this.setDraft({ date: e.target.value }),
+      draftTime: d.time, setTime: e => this.setDraft({ time: e.target.value }),
+      draftNotes: d.notes, setNotes: e => this.setDraft({ notes: e.target.value }),
+      hasTime: d.hasTime, toggleTime: () => this.setDraft({ hasTime: !d.hasTime }),
+      switchStyle: SWITCH(d.hasTime), knobStyle: KNOB,
+      toggleRemind: () => this.setDraft({ remind: !d.remind }), remindSwitch: SWITCH(d.remind), remindKnob: KNOB,
+      saveLabel: d.title.trim() ? 'Start the countdown' : 'Name it first',
+      save: () => this.save(),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

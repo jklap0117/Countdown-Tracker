@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-cfd2560d-68f7-418b-8aea-0d344f5576f8/styles.css">
+<script src="_ds/organic-cfd2560d-68f7-418b-8aea-0d344f5576f8/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#efe4d0;font-family:var(--font-body)}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#201e1d;color:#f5ead8;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 var(--font-body);color:#201e1d}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(32,30,29,.1);color:#201e1d;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 var(--font-body);color:rgba(32,30,29,.6);max-width:402px}
+.dv-opt:target .dv-oid{background:#c67139;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 var(--font-body);color:rgba(32,30,29,.55)}
+.scr::-webkit-scrollbar{width:0;height:0}
+</style></helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Milestone tracker — three main-page layouts, plus add / detail / widget</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Hero + months, updated — slimmer hero, bigger milestone rows, and an All / Jordan / Maddie / Shared filter above the categories</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 124px">
+  <div style="padding:0 20px 4px">
+    <h1 style="font-size:34px;margin:0 0 2px">Coming up</h1>
+    <div style="font-size:13px;color:var(--color-neutral-600)">{{ tagline }}</div>
+  </div>
+  <div style="padding:14px 20px 0;display:flex;align-items:center;gap:10px">
+    <button style="{{ allStyle }}" onClick="{{ selectAll }}">
+      <span style="display:flex">
+        <sc-for list="{{ allDots }}" as="d" hint-placeholder-count="2">
+          <span style="{{ d.style }}">{{ d.t }}</span>
+        </sc-for>
+      </span>All
+    </button>
+    <div style="flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--color-accent-2-200)">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+        <button style="{{ p.style }}" onClick="{{ p.onClick }}">{{ p.name }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div class="scr" style="display:flex;gap:8px;overflow-x:auto;padding:12px 20px 16px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.name }}</button>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hero }}" hint-placeholder-val="{{ true }}">
+  <div style="padding:0 20px 24px">
+    <div style="position:relative;overflow:hidden;background:var(--color-accent);color:var(--color-bg);border-radius:28px;padding:16px 18px 15px;box-shadow:var(--shadow-md)">
+      <div style="position:absolute;right:-46px;top:-62px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.11)"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:8px">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;flex:1">Up next · {{ hero.catName }}</div>
+        <div style="display:flex">
+          <sc-for list="{{ hero.whoInitials }}" as="a" hint-placeholder-count="2">
+            <div style="{{ a.style }}">{{ a.t }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;display:flex;align-items:flex-end;gap:12px;margin-top:8px">
+        <div style="display:flex;align-items:flex-end;gap:6px;flex:none">
+          <div style="font-family:var(--font-heading);font-size:52px;line-height:.82">{{ hero.big }}</div>
+          <div style="font-family:var(--font-heading);font-size:14px;line-height:1.7;opacity:.9">{{ hero.unit }}</div>
+        </div>
+        <div style="flex:1;min-width:0;text-align:right">
+          <div style="font-family:var(--font-heading);font-size:19px;line-height:1.15">{{ hero.title }}</div>
+          <div style="font-size:12px;opacity:.88;margin-top:2px">{{ hero.when }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+    <div style="padding:0 20px 22px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600)">{{ g.upper }}</div>
+        <div style="flex:1;height:1px;background:var(--color-divider)"></div>
+        <div style="font-size:11px;color:var(--color-neutral-500)">{{ g.count }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+          <div onClick="{{ it.open }}" style="display:flex;align-items:center;gap:15px;padding:15px 8px;cursor:pointer;border-radius:22px" style-hover="background:rgba(32,30,29,.05)">
+            <div style="width:6px;height:52px;border-radius:999px;background:{{ it.color }};flex:none"></div>
+            <div style="flex:1;min-width:0">
+              <div style="font-family:var(--font-heading);font-size:19px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.title }}</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+                <div style="font-size:13px;color:var(--color-neutral-600);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ it.when }}</div>
+                <div style="display:flex;flex:none">
+                  <sc-for list="{{ it.whoInitials }}" as="a" hint-placeholder-count="1">
+                    <div style="{{ a.style }}">{{ a.t }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right;flex:none">
+              <div style="font-family:var(--font-heading);font-size:28px;line-height:1">{{ it.big }}</div>
+              <div style="font-size:11px;color:var(--color-neutral-600);letter-spacing:.04em">{{ it.unit }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+  <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:40px 20px 0;text-align:center">
+      <div style="width:74px;height:74px;border-radius:50%;background:var(--color-accent-2-200);margin:0 auto 14px"></div>
+      <div style="font-family:var(--font-heading);font-size:19px">Nothing on the horizon</div>
+      <div style="font-size:13px;color:var(--color-neutral-600);margin-top:4px">Add something to look forward to.</div>
+    </div>
+  </sc-if>
+</div>
+<div style="position:absolute;right:22px;bottom:44px;width:60px;height:60px;border-radius:50%;background:var(--color-accent);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:70" style-hover="background:var(--color-accent-600)">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f5ead8" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Month bands — each month is a big Caprasimo header with a tinted card stack under it; equal weight for everything</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 40px">
+  <div style="padding:0 20px 4px;display:flex;align-items:flex-end;justify-content:space-between">
+    <div>
+      <h1 style="font-size:34px;margin:0 0 2px">Coming up</h1>
+      <div style="font-size:13px;color:var(--color-neutral-600)">{{ tagline }}</div>
+    </div>
+    <div style="width:44px;height:44px;border-radius:50%;background:var(--color-accent);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;margin-bottom:4px" style-hover="background:var(--color-accent-600)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5ead8" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+    </div>
+  </div>
+  <div style="padding:14px 20px 0;display:flex;align-items:center;gap:10px">
+    <button style="{{ allStyle }}" onClick="{{ selectAll }}">
+      <span style="display:flex">
+        <sc-for list="{{ allDots }}" as="d" hint-placeholder-count="2">
+          <span style="{{ d.style }}">{{ d.t }}</span>
+        </sc-for>
+      </span>All
+    </button>
+    <div style="flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--color-accent-2-200)">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+        <button style="{{ p.style }}" onClick="{{ p.onClick }}">{{ p.name }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div class="scr" style="display:flex;gap:8px;overflow-x:auto;padding:12px 20px 18px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.name }}</button>
+    </sc-for>
+  </div>
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+    <div style="padding:0 20px 24px">
+      <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:12px">
+        <h2 style="font-size:27px;margin:0">{{ g.label }}</h2>
+        <div style="font-size:12px;color:var(--color-neutral-500)">{{ g.year }}</div>
+        <div style="margin-left:auto;font-size:11px;padding:3px 10px;border-radius:999px;background:var(--color-accent-2-200);color:var(--color-accent-2-800)">{{ g.count }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+          <div onClick="{{ it.open }}" style="display:flex;align-items:center;gap:14px;padding:15px 16px;border-radius:26px;background:{{ it.tint }};cursor:pointer;box-shadow:var(--shadow-sm)" style-hover="transform:translateY(-1px)">
+            <div style="width:52px;height:52px;border-radius:50%;background:{{ it.color }};color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none">
+              <div style="font-family:var(--font-heading);font-size:19px;line-height:1">{{ it.day }}</div>
+              <div style="font-size:8px;letter-spacing:.1em;text-transform:uppercase;opacity:.9">{{ it.mon }}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-family:var(--font-heading);font-size:17px;line-height:1.2">{{ it.title }}</div>
+              <div style="font-size:12px;color:{{ it.deep }};margin-top:3px">{{ it.catName }} · {{ it.timeLabel }} · {{ it.whoLabel }}</div>
+            </div>
+            <div style="text-align:right;flex:none">
+              <div style="font-family:var(--font-heading);font-size:24px;line-height:1;color:{{ it.deep }}">{{ it.big }}</div>
+              <div style="font-size:10px;color:{{ it.deep }};opacity:.75">{{ it.unit }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Timeline spine — one continuous thread through the year, with the gap between items drawn to scale</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 124px">
+  <div style="padding:0 20px 4px">
+    <h1 style="font-size:34px;margin:0 0 2px">The thread</h1>
+    <div style="font-size:13px;color:var(--color-neutral-600)">{{ tagline }}</div>
+  </div>
+  <div style="padding:14px 20px 0;display:flex;align-items:center;gap:10px">
+    <button style="{{ allStyle }}" onClick="{{ selectAll }}">
+      <span style="display:flex">
+        <sc-for list="{{ allDots }}" as="d" hint-placeholder-count="2">
+          <span style="{{ d.style }}">{{ d.t }}</span>
+        </sc-for>
+      </span>All
+    </button>
+    <div style="flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--color-accent-2-200)">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="3">
+        <button style="{{ p.style }}" onClick="{{ p.onClick }}">{{ p.name }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div class="scr" style="display:flex;gap:8px;overflow-x:auto;padding:12px 20px 20px">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.name }}</button>
+    </sc-for>
+  </div>
+  <div style="position:relative;padding:0 20px">
+    <div style="position:absolute;left:46px;top:6px;bottom:20px;width:2px;background:var(--color-neutral-300)"></div>
+    <sc-for list="{{ flat }}" as="n" hint-placeholder-count="6">
+      <div>
+        <sc-if value="{{ n.isMonth }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:16px;margin:2px 0 10px">
+            <div style="width:52px;height:52px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-800);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;z-index:1">
+              <div style="font-family:var(--font-heading);font-size:14px;line-height:1">{{ n.mon }}</div>
+              <div style="font-size:8px;letter-spacing:.08em">{{ n.year }}</div>
+            </div>
+            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600)">{{ n.count }}</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ n.isItem }}" hint-placeholder-val="{{ true }}">
+          <div onClick="{{ n.open }}" style="display:flex;gap:16px;cursor:pointer;padding-bottom:{{ n.gap }}">
+            <div style="width:52px;display:flex;justify-content:center;flex:none;padding-top:15px">
+              <div style="width:16px;height:16px;border-radius:50%;background:var(--color-bg);border:3px solid {{ n.color }};z-index:1"></div>
+            </div>
+            <div style="flex:1;min-width:0;border-radius:24px;background:var(--color-surface);padding:13px 16px" style-hover="background:var(--color-neutral-200)">
+              <div style="display:flex;align-items:baseline;gap:8px">
+                <div style="font-family:var(--font-heading);font-size:16px;line-height:1.2;flex:1;min-width:0">{{ n.title }}</div>
+                <div style="font-family:var(--font-heading);font-size:17px;color:{{ n.deep }}">{{ n.big }}</div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+                <div style="font-size:12px;color:var(--color-neutral-600);flex:1">{{ n.when }} · {{ n.whoLabel }}</div>
+                <div style="font-size:10px;color:var(--color-neutral-600)">{{ n.unit }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</div>
+<div style="position:absolute;right:22px;bottom:44px;width:60px;height:60px;border-radius:50%;background:var(--color-accent);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:70" style-hover="background:var(--color-accent-600)">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f5ead8" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Add milestone — time is an opt-in toggle, category is a tap grid, everything else collapses out of the way</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:58px 0 110px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px 10px">
+    <div style="font-size:14px;color:var(--color-neutral-600);cursor:pointer">Cancel</div>
+    <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-500)">New milestone</div>
+    <div style="width:44px"></div>
+  </div>
+  <div style="padding:6px 20px 0">
+    <input class="input" value="{{ draftTitle }}" onChange="{{ setTitle }}" placeholder="What are you waiting for?" style="background:transparent;border:none;border-radius:0;padding:0;font-family:var(--font-heading);font-size:28px;min-height:44px;width:100%">
+    <div style="height:1px;background:var(--color-divider);margin:2px 0 24px"></div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Category</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="8">
+        <button style="{{ c.style }}" onClick="{{ c.onClick }}">{{ c.name }}</button>
+      </sc-for>
+      <button style="display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:999px;border:1px dashed var(--color-neutral-400);background:transparent;font:inherit;font-size:13px;color:var(--color-neutral-600);cursor:pointer" style-hover="border-color:var(--color-accent);color:var(--color-accent-700)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New
+      </button>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Who's it for</div>
+    <div style="display:flex;gap:8px">
+      <sc-for list="{{ whoChips }}" as="w" hint-placeholder-count="3">
+        <button style="{{ w.style }}" onClick="{{ w.onClick }}">{{ w.name }}</button>
+      </sc-for>
+    </div>
+    <div style="font-size:11px;color:var(--color-neutral-600);margin-top:8px">Shared milestones show up on both of your phones and widgets.</div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">When</div>
+    <div style="background:var(--color-surface);border-radius:26px;padding:16px 18px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:14px">Date</div>
+        <div style="font-family:var(--font-heading);font-size:17px;color:var(--color-accent-700)">Oct 3, 2026</div>
+      </div>
+      <div style="height:1px;background:var(--color-divider);margin:14px 0"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:14px">Add a time</div>
+          <div style="font-size:11px;color:var(--color-neutral-600);margin-top:1px">Optional — leave off for all-day</div>
+        </div>
+        <div onClick="{{ toggleTime }}" style="{{ switchStyle }}">
+          <div style="{{ knobStyle }}"></div>
+        </div>
+      </div>
+      <sc-if value="{{ hasTime }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--color-divider)">
+          <div style="font-size:14px">Time</div>
+          <div style="font-family:var(--font-heading);font-size:17px;color:var(--color-accent-700)">8:20 PM</div>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <div style="padding:7px 13px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-800);font-size:12px;cursor:pointer">This weekend</div>
+        <div style="padding:7px 13px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-800);font-size:12px;cursor:pointer">Next month</div>
+        <div style="padding:7px 13px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-800);font-size:12px;cursor:pointer">Pick date</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 22px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px">Extras</div>
+    <div style="background:var(--color-surface);border-radius:26px;padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+      <input class="input" placeholder="Notes — flight numbers, who's coming…" style="background:var(--color-bg);border-color:transparent;font-size:13px">
+      <input class="input" placeholder="Link (trailer, booking, tickets)" style="background:var(--color-bg);border-color:transparent;font-size:13px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:14px">Remind me</div>
+          <div style="font-size:11px;color:var(--color-neutral-600);margin-top:1px">One week before, 9:00 AM</div>
+        </div>
+        <div onClick="{{ toggleRemind }}" style="{{ remindSwitch }}">
+          <div style="{{ remindKnob }}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:14px 20px 30px;background:linear-gradient(to top,var(--color-bg) 62%,rgba(245,234,216,0));z-index:70">
+  <button class="btn btn-primary btn-block" style="height:52px;font-size:17px;margin:0">{{ saveLabel }}</button>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1e">
+<div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Detail — the wait rendered as a filling arc, with the countdown broken into days / hours / minutes</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div class="scr" style="height:100%;overflow:auto;background:var(--color-bg);padding:52px 0 40px">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 0">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--color-surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--color-text)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    </div>
+    <div style="font-size:14px;color:var(--color-accent-700);cursor:pointer">Edit</div>
+  </div>
+  <div style="padding:14px 20px 0;text-align:center">
+    <div style="position:relative;width:250px;height:250px;margin:0 auto">
+      <svg width="250" height="250" viewBox="0 0 250 250" style="transform:rotate(-90deg)">
+        <circle cx="125" cy="125" r="112" fill="none" stroke="var(--color-neutral-300)" stroke-width="14"></circle>
+        <circle cx="125" cy="125" r="112" fill="none" stroke="var(--color-accent)" stroke-width="14" stroke-linecap="round" stroke-dasharray="{{ arcDash }}"></circle>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div style="font-family:var(--font-heading);font-size:78px;line-height:.9">{{ detail.big }}</div>
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-600);margin-top:6px">days to go</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:26px;margin-top:18px">
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.hrs }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">hours</div></div>
+      <div style="width:1px;background:var(--color-divider)"></div>
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.mins }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">minutes</div></div>
+      <div style="width:1px;background:var(--color-divider)"></div>
+      <div><div style="font-family:var(--font-heading);font-size:24px">{{ detail.weeks }}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">weeks</div></div>
+    </div>
+  </div>
+  <div style="padding:26px 20px 0;text-align:center">
+    <div style="display:flex;justify-content:center;gap:6px">
+      <span class="tag tag-accent" style="font-size:11px">{{ detail.catName }}</span>
+      <span class="tag tag-accent-2" style="font-size:11px">{{ detail.whoLabel }}</span>
+    </div>
+    <h2 style="font-size:30px;margin:12px 0 4px;text-wrap:pretty">{{ detail.title }}</h2>
+    <div style="font-size:14px;color:var(--color-neutral-600)">{{ detail.when }}</div>
+  </div>
+  <div style="padding:24px 20px 0">
+    <div style="background:var(--color-surface);border-radius:28px;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:4px">Notes</div>
+        <div style="font-size:14px;line-height:1.5">Sydney → Cairns → Melbourne. Flights booked, Great Barrier Reef day trip still to sort.</div>
+      </div>
+      <div style="height:1px;background:var(--color-divider)"></div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:4px">Link</div>
+        <a href="#1e" style="font-size:14px;color:var(--color-accent-700)">Qantas booking QF12</a>
+      </div>
+      <div style="height:1px;background:var(--color-divider)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:14px">Reminder</div>
+        <div style="font-size:13px;color:var(--color-neutral-600)">1 week before</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:16px 20px 0;display:flex;gap:10px">
+    <button class="btn btn-secondary" style="flex:1;height:46px">Add to calendar</button>
+    <button class="btn btn-secondary" style="flex:1;height:46px;color:var(--color-accent-700)">Share</button>
+  </div>
+  <div style="padding:22px 20px 0;text-align:center;font-size:12px;color:var(--color-neutral-500)">Added 4 months ago · {{ detail.pct }}% of the wait is behind you</div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1f">
+<div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Home-screen widgets — medium shows the next three, small shows the single next thing</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div style="height:100%;background:radial-gradient(120% 90% at 20% 12%,#f7edda 0%,#e6d5b8 55%,#cdb894 100%);padding:78px 22px 0;display:flex;flex-direction:column;gap:22px">
+  <div style="border-radius:30px;background:rgba(245,234,216,.82);backdrop-filter:blur(18px);box-shadow:var(--shadow-md);padding:16px 18px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px">
+      <div style="font-family:var(--font-heading);font-size:14px">Coming up</div>
+      <div style="font-size:10px;color:var(--color-neutral-600)">{{ tagline }}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <sc-for list="{{ widget }}" as="w" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:11px">
+          <div style="width:4px;height:28px;border-radius:999px;background:{{ w.color }};flex:none"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:var(--font-heading);font-size:14px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ w.title }}</div>
+            <div style="font-size:10px;color:var(--color-neutral-600)">{{ w.when }} · {{ w.whoLabel }}</div>
+          </div>
+          <div style="text-align:right;flex:none">
+            <div style="font-family:var(--font-heading);font-size:17px;line-height:1">{{ w.big }}</div>
+            <div style="font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ w.unit }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:flex;gap:22px">
+    <sc-if value="{{ hero }}" hint-placeholder-val="{{ true }}">
+    <div style="width:158px;height:158px;border-radius:30px;background:var(--color-accent);color:var(--color-bg);padding:16px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow-md);position:relative;overflow:hidden">
+      <div style="position:absolute;right:-38px;top:-42px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.12)"></div>
+      <div style="position:relative;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.85">{{ hero.catName }}</div>
+      <div style="position:relative">
+        <div style="font-family:var(--font-heading);font-size:48px;line-height:.9">{{ hero.big }}</div>
+        <div style="font-size:10px;opacity:.85;margin-top:1px">{{ hero.unit }}</div>
+        <div style="font-family:var(--font-heading);font-size:15px;line-height:1.15;margin-top:8px">{{ hero.title }}</div>
+      </div>
+    </div>
+    </sc-if>
+    <div style="width:158px;height:158px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:22px">
+      <div style="border-radius:16px;background:rgba(32,30,29,.10)"></div>
+      <div style="border-radius:16px;background:rgba(32,30,29,.10)"></div>
+      <div style="border-radius:16px;background:rgba(32,30,29,.10)"></div>
+      <div style="border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px">
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+    <div style="height:72px;border-radius:16px;background:rgba(32,30,29,.10)"></div>
+  </div>
+  <div style="margin-top:auto;margin-bottom:34px;border-radius:30px;background:rgba(245,234,216,.55);backdrop-filter:blur(14px);padding:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+    <div style="height:66px;border-radius:16px;background:rgba(32,30,29,.13)"></div>
+    <div style="height:66px;border-radius:16px;background:rgba(32,30,29,.13)"></div>
+    <div style="height:66px;border-radius:16px;background:rgba(32,30,29,.13)"></div>
+    <div style="height:66px;border-radius:16px;background:rgba(32,30,29,.13)"></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build out <a class="dv-oid" href="#1a">1a</a> as the real app with a Past tab" · "add Maddie's invite / sharing setup screen" · "let the widget filter to just shared milestones"</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:1000}}">
+const CATS = [
+  { id: 'trips', name: 'Trips', color: '#c67139', tint: '#ffe1d0', deep: '#8c491a' },
+  { id: 'tv', name: 'TV', color: '#7a8a5e', tint: '#e1eecc', deep: '#56633f' },
+  { id: 'movies', name: 'Movies', color: '#8c491a', tint: '#ffe1d0', deep: '#643312' },
+  { id: 'sports', name: 'Sports', color: '#56633f', tint: '#e1eecc', deep: '#3d472b' },
+  { id: 'concerts', name: 'Concerts', color: '#b2622d', tint: '#fff2eb', deep: '#8c491a' },
+  { id: 'birthdays', name: 'Birthdays', color: '#f6a06b', tint: '#fff2eb', deep: '#8c491a' },
+  { id: 'goals', name: 'Goals', color: '#8fa073', tint: '#f0fae1', deep: '#56633f' },
+];
+
+const ITEMS = [
+  { id: 1, title: 'Weekend in Asheville', cat: 'trips', date: '2026-07-29T15:00', time: true, who: 'both' },
+  { id: 2, title: "Mom's Birthday", cat: 'birthdays', date: '2026-08-14', time: false, who: 'me' },
+  { id: 3, title: 'NFL Season Kickoff', cat: 'sports', date: '2026-09-09T20:20', time: true, who: 'me' },
+  { id: 4, title: 'Hozier at The Anthem', cat: 'concerts', date: '2026-09-26T19:30', time: true, who: 'maddie' },
+  { id: 5, title: 'Australia Trip', cat: 'trips', date: '2026-10-03', time: false, who: 'both' },
+  { id: 6, title: 'Apothecary Diaries S3', cat: 'tv', date: '2026-10-17', time: false, who: 'me' },
+  { id: 7, title: 'First half marathon', cat: 'goals', date: '2026-11-08T07:30', time: true, who: 'maddie' },
+  { id: 8, title: 'Dune: Part Three', cat: 'movies', date: '2026-12-18', time: false, who: 'both' },
+  { id: 9, title: 'Harry Potter series premiere', cat: 'tv', date: '2026-12-25', time: false, who: 'both' },
+];
+
+const WHO = {
+  me: { label: 'Jordan', initials: ['J'], tint: 'var(--color-accent-200)', ink: 'var(--color-accent-800)' },
+  maddie: { label: 'Maddie', initials: ['M'], tint: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-800)' },
+  both: { label: 'Jordan + Maddie', initials: ['J', 'M'], tint: 'var(--color-neutral-200)', ink: 'var(--color-neutral-800)' },
+};
+
+const PEOPLE = [
+  { id: 'me', name: 'Jordan' },
+  { id: 'maddie', name: 'Maddie' },
+  { id: 'both', name: 'Shared' },
+];
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function pd(s) { return new Date(s.length === 10 ? s + 'T00:00' : s); }
+
+function pill(active) {
+  return 'flex:none;padding:9px 16px;border-radius:999px;border:1px solid ' +
+    (active ? 'transparent' : 'var(--color-divider)') +
+    ';background:' + (active ? 'var(--color-accent)' : 'transparent') +
+    ';color:' + (active ? 'var(--color-bg)' : 'var(--color-text)') +
+    ';font-family:var(--font-body);font-size:13px;line-height:1;cursor:pointer;white-space:nowrap';
+}
+
+class Component extends DCLogic {
+  state = { cat: 'all', person: 'all', addWho: 'both', now: new Date('2026-07-26T09:12:00'), draftTitle: 'Australia Trip', hasTime: false, remind: true, addCat: 'trips' };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: new Date(this.state.now.getTime() + 60000) }), 60000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  decorate(it) {
+    const d = pd(it.date);
+    const ms = d - this.state.now;
+    const totalH = ms / 3600000;
+    const n = this.state.now;
+    const calDays = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(n.getFullYear(), n.getMonth(), n.getDate())) / 86400000);
+    const days = it.time ? Math.floor(totalH / 24) : calDays;
+    const hours = Math.floor(totalH - Math.floor(totalH / 24) * 24);
+    const c = CATS.find(x => x.id === it.cat);
+    const w = WHO[it.who];
+    const when = DAYS[d.getDay()] + ', ' + SHORT[d.getMonth()] + ' ' + d.getDate() +
+      (it.time ? ' · ' + this.fmtTime(d) : '');
+    return {
+      ...it, color: c.color, tint: c.tint, deep: c.deep, catName: c.name,
+      whoLabel: w.label, whoInitials: w.initials.map((t, i) => ({ t, style: 'width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:11px;color:#fff;background:' + (t === 'M' ? 'var(--color-accent-2-600)' : 'var(--color-accent-600)') + ';box-shadow:0 0 0 2px var(--color-bg);margin-left:' + (i ? '-8px' : '0') })),
+      whoChip: 'display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:11px;background:' + w.tint + ';color:' + w.ink,
+      days, hours, when,
+      day: String(d.getDate()), mon: SHORT[d.getMonth()].toUpperCase(),
+      timeLabel: it.time ? this.fmtTime(d) : 'All day',
+      big: String(days),
+      unit: days >= 7 ? 'days' : (!it.time ? (days === 0 ? 'today' : days === 1 ? 'day' : 'days')
+        : (days === 0 ? 'today · ' + hours + 'h' : 'days ' + hours + 'h')),
+      monthKey: d.getFullYear() + '-' + d.getMonth(),
+      label: MONTHS[d.getMonth()], year: String(d.getFullYear()),
+      open: () => {},
+    };
+  }
+
+  fmtTime(d) {
+    let h = d.getHours(); const m = String(d.getMinutes()).padStart(2, '0');
+    const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    return h + ':' + m + ' ' + ap;
+  }
+
+  renderVals() {
+    const all = ITEMS.map(i => this.decorate(i)).sort((a, b) => pd(a.date) - pd(b.date));
+    const p = this.state.person;
+    const byCat = this.state.cat === 'all' ? all : all.filter(i => i.cat === this.state.cat);
+    const list = byCat.filter(i => p === 'all' || (p === 'both' ? i.who === 'both' : i.who === p || i.who === 'both'));
+
+    const tabs = [{ id: 'all', name: 'All' }].concat(CATS.map(c => ({ id: c.id, name: c.name }))).map(t => ({
+      name: t.name,
+      style: pill(this.state.cat === t.id),
+      onClick: () => this.setState({ cat: t.id }),
+    }));
+
+    const allOn = this.state.person === 'all';
+    const allStyle = 'flex:none;display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:999px;font-family:var(--font-heading);font-size:13px;line-height:1;cursor:pointer;border:1px solid ' +
+      (allOn ? 'transparent' : 'var(--color-neutral-400)') + ';background:' + (allOn ? 'var(--color-neutral-900)' : 'transparent') +
+      ';color:' + (allOn ? 'var(--color-bg)' : 'var(--color-neutral-700)');
+    const allDots = ['J', 'M'].map((t, i) => ({
+      t,
+      style: 'width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;background:' +
+        (t === 'M' ? 'var(--color-accent-2-600)' : 'var(--color-accent-600)') +
+        ';box-shadow:0 0 0 1.5px ' + (allOn ? 'var(--color-neutral-900)' : 'var(--color-bg)') + ';margin-left:' + (i ? '-5px' : '0'),
+    }));
+
+    const people = PEOPLE.map(x => {
+      const on = this.state.person === x.id;
+      return {
+        name: x.name,
+        onClick: () => this.setState({ person: x.id }),
+        style: 'flex:1;padding:8px 4px;border:none;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;background:' +
+          (on ? 'var(--color-accent-2-600)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--color-neutral-700)'),
+      };
+    });
+
+    const whoChips = ['me', 'maddie', 'both'].map(id => {
+      const on = this.state.addWho === id;
+      return {
+        name: WHO[id].label,
+        onClick: () => this.setState({ addWho: id }),
+        style: 'flex:1;padding:10px 6px;border-radius:999px;border:1px solid ' + (on ? 'transparent' : 'var(--color-divider)') +
+          ';background:' + (on ? 'var(--color-accent-2-600)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--color-text)') +
+          ';font:inherit;font-size:13px;cursor:pointer',
+      };
+    });
+
+    const groups = [];
+    list.forEach(it => {
+      let g = groups.find(x => x.key === it.monthKey);
+      if (!g) { g = { key: it.monthKey, label: it.label, year: it.year, upper: it.label.toUpperCase() + ' ' + it.year, items: [] }; groups.push(g); }
+      g.items.push(it);
+    });
+    groups.forEach(g => { g.count = g.items.length === 1 ? '1 thing' : g.items.length + ' things'; });
+
+    const flat = [];
+    groups.forEach(g => {
+      flat.push({ isMonth: true, isItem: false, mon: SHORT[Number(g.key.split('-')[1])], year: g.year, count: g.count });
+      g.items.forEach((it, i) => {
+        const next = g.items[i + 1];
+        const gapDays = next ? (pd(next.date) - pd(it.date)) / 86400000 : 0;
+        flat.push({ ...it, isMonth: false, isItem: true, gap: Math.min(64, 10 + gapDays * 2.2) + 'px' });
+      });
+    });
+
+    const hero = list[0];
+    const detail = all.find(i => i.id === 5);
+    const created = new Date('2026-03-20');
+    const target = pd(detail.date);
+    const pct = Math.round(((this.state.now - created) / (target - created)) * 100);
+    const r = 112, circ = 2 * Math.PI * r;
+    const detMs = target - this.state.now;
+
+    const chips = CATS.map(c => ({
+      name: c.name,
+      onClick: () => this.setState({ addCat: c.id }),
+      style: 'padding:8px 15px;border-radius:999px;border:1px solid ' +
+        (this.state.addCat === c.id ? 'transparent' : 'var(--color-divider)') +
+        ';background:' + (this.state.addCat === c.id ? c.color : 'transparent') +
+        ';color:' + (this.state.addCat === c.id ? '#fff' : 'var(--color-text)') +
+        ';font:inherit;font-size:13px;cursor:pointer',
+    }));
+
+    const sw = on => 'width:50px;height:30px;border-radius:999px;padding:3px;cursor:pointer;display:flex;justify-content:' +
+      (on ? 'flex-end' : 'flex-start') + ';background:' + (on ? 'var(--color-accent)' : 'var(--color-neutral-400)') + ';transition:background .2s';
+    const knob = 'width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm)';
+
+    return {
+      tagline: list.length + (list.length === 1 ? ' thing' : ' things') + ' to look forward to',
+      tabs, groups, flat, hero, people, whoChips, allStyle, allDots,
+      selectAll: () => this.setState({ person: 'all' }),
+      empty: list.length === 0,
+      widget: all.slice(0, 3),
+      catChips: chips,
+      draftTitle: this.state.draftTitle,
+      setTitle: e => this.setState({ draftTitle: e.target.value }),
+      hasTime: this.state.hasTime,
+      toggleTime: () => this.setState({ hasTime: !this.state.hasTime }),
+      switchStyle: sw(this.state.hasTime), knobStyle: knob,
+      toggleRemind: () => this.setState({ remind: !this.state.remind }),
+      remindSwitch: sw(this.state.remind), remindKnob: knob,
+      saveLabel: 'Start the countdown',
+      detail: {
+        ...detail,
+        hrs: Math.floor((detMs % 86400000) / 3600000),
+        mins: Math.floor((detMs % 3600000) / 60000),
+        weeks: Math.floor(detail.days / 7),
+        pct,
+      },
+      arcDash: (circ * pct / 100).toFixed(1) + ' ' + circ.toFixed(1),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
