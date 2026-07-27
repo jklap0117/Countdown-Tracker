@@ -78,6 +78,33 @@
   cursor: not-allowed;
 }
 
+/* Wide tracking so a six-digit code is easy to check against the email. */
+.codeInput {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 22px;
+  letter-spacing: 0.32em;
+  text-align: center;
+}
+
+.secondary {
+  margin-top: var(--space-3);
+  padding: 10px 16px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-accent-700);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  align-self: center;
+  width: 100%;
+}
+
+.secondary:hover {
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+}
+
 .note {
   margin-top: var(--space-4);
   padding: 14px 16px;
