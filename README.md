@@ -29,7 +29,11 @@ To turn sync on:
 1. Deploy first. Then in Supabase → Authentication → URL Configuration, set the Site URL to the deployed origin and add it to Redirect URLs.
 2. Uncomment both lines in `.env.local`, and set the same two variables in Netlify → Site configuration → Environment variables.
 2. Run `supabase/migrations/0001_init.sql` in the Supabase SQL editor. It creates the tables, the row-level security policies and the realtime publication.
-3. Both people sign in with a magic link. Then pair the two accounts by inserting a row in `partners` **in each direction** — the Sharing screen will do this once it exists:
+3. Turn **off** "Confirm email" in Authentication → Providers → Email. Sign-in is email + password with no email sent at all, for two reasons: Supabase's default SMTP only delivers to members of your own org, so a partner outside it would never receive anything; and on iOS a home-screen web app has its own storage container, so a link tapped in Mail signs you in to Safari while the installed app stays signed out. A password keeps the exchange inside the app.
+
+   Once both accounts exist, turn **off** "Allow new users to sign up" in the same panel. The door closes behind you.
+
+4. Both people create an account in the app. Then pair the two accounts by inserting a row in `partners` **in each direction** — the Sharing screen will do this once it exists:
    ```sql
    insert into public.partners (user_id, partner_id) values ('<jordan-uuid>', '<maddie-uuid>');
    insert into public.partners (user_id, partner_id) values ('<maddie-uuid>', '<jordan-uuid>');

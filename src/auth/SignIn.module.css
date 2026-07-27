@@ -78,15 +78,6 @@
   cursor: not-allowed;
 }
 
-/* Wide tracking so a six-digit code is easy to check against the email. */
-.codeInput {
-  font-family: var(--font-heading);
-  font-weight: var(--font-heading-weight);
-  font-size: 22px;
-  letter-spacing: 0.32em;
-  text-align: center;
-}
-
 .secondary {
   margin-top: var(--space-3);
   padding: 10px 16px;

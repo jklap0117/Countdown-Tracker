@@ -2,138 +2,126 @@ import { useState, type FormEvent } from 'react'
 import { requireSupabase } from '../lib/supabase'
 import styles from './SignIn.module.css'
 
+const MIN_PASSWORD = 8
+
 /**
- * Sign-in by six-digit code, not by clicking the emailed link.
+ * Email and password, with no email sent at all.
  *
- * On iOS a home-screen web app has its own storage container, separate from
- * Safari. Tapping a magic link opens Safari, so the session lands in the wrong
- * container and the installed app is still signed out. Typing the code here
- * keeps the whole exchange inside the app.
+ * Two constraints pushed us here. Supabase's default SMTP only delivers to
+ * members of the project's own org, so a partner who isn't one would never
+ * receive a magic link. And on iOS a home-screen web app has its own storage
+ * container — a link tapped in Mail opens Safari, so the session lands
+ * somewhere the installed app cannot see.
  *
- * The emailed link still works — useful on desktop — it just isn't the path
- * this screen depends on.
+ * Signing in with a password keeps the whole exchange inside the app. It
+ * requires "Confirm email" to be OFF in Authentication → Providers → Email;
+ * if it is on, signUp returns no session and we say so rather than appearing
+ * to hang.
  */
 export function SignIn() {
-  const [stage, setStage] = useState<'email' | 'code'>('email')
+  const [mode, setMode] = useState<'sign-in' | 'sign-up'>('sign-in')
   const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
+  const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
 
-  async function sendCode(event: FormEvent) {
+  const signingUp = mode === 'sign-up'
+  const ready = email.trim() !== '' && password.length >= MIN_PASSWORD
+
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    const address = email.trim()
-    if (address === '') return
+    if (!ready) return
 
     setBusy(true)
     setError(null)
-    const { error: sendError } = await requireSupabase().auth.signInWithOtp({
-      email: address,
-      options: { emailRedirectTo: window.location.origin },
-    })
-    setBusy(false)
+    setNotice(null)
 
-    if (sendError) {
-      setError(sendError.message)
+    const auth = requireSupabase().auth
+    const credentials = { email: email.trim(), password }
+
+    if (signingUp) {
+      const { data, error: signUpError } = await auth.signUp(credentials)
+      setBusy(false)
+
+      if (signUpError) {
+        setError(signUpError.message)
+        return
+      }
+      // No session means the project still wants email confirmation, which
+      // cannot work here — the default SMTP won't mail non-org addresses.
+      if (data.session === null) {
+        setNotice(
+          'Account created, but the project still requires email confirmation. ' +
+            'Turn off "Confirm email" under Authentication → Providers → Email, then sign in.',
+        )
+        setMode('sign-in')
+      }
       return
     }
-    setStage('code')
-  }
 
-  async function verifyCode(event: FormEvent) {
-    event.preventDefault()
-    const token = code.trim()
-    if (token === '') return
-
-    setBusy(true)
-    setError(null)
-    const { error: verifyError } = await requireSupabase().auth.verifyOtp({
-      email: email.trim(),
-      token,
-      type: 'email',
-    })
+    const { error: signInError } = await auth.signInWithPassword(credentials)
     setBusy(false)
-
-    // On success the auth listener swaps this screen out; nothing to do here.
-    if (verifyError) setError(verifyError.message)
+    if (signInError) setError(signInError.message)
+    // On success the auth listener swaps this screen out.
   }
 
-  function startOver() {
-    setStage('email')
-    setCode('')
+  function switchMode() {
+    setMode(signingUp ? 'sign-in' : 'sign-up')
     setError(null)
+    setNotice(null)
   }
 
   return (
     <div className={styles.screen}>
       <h1 className={styles.title}>Coming up</h1>
+      <p className={styles.blurb}>
+        {signingUp
+          ? 'Create an account to sync your milestones across both phones.'
+          : 'Sign in to sync your milestones across both phones.'}
+      </p>
 
-      {stage === 'email' ? (
-        <>
-          <p className={styles.blurb}>
-            Sign in to sync your milestones across both phones. We'll email you a code — no
-            password to remember.
-          </p>
+      <form className={styles.form} onSubmit={(e) => void handleSubmit(e)}>
+        <label className={styles.label} htmlFor="email">
+          Email
+        </label>
+        <input
+          id="email"
+          className={styles.input}
+          type="email"
+          value={email}
+          autoComplete="email"
+          placeholder="you@example.com"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <form className={styles.form} onSubmit={(e) => void sendCode(e)}>
-            <label className={styles.label} htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              className={styles.input}
-              type="email"
-              value={email}
-              autoComplete="email"
-              placeholder="you@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button
-              type="submit"
-              className={styles.submit}
-              disabled={busy || email.trim() === ''}
-            >
-              {busy ? 'Sending…' : 'Email me a code'}
-            </button>
-          </form>
-        </>
-      ) : (
-        <>
-          <p className={styles.blurb}>
-            Enter the six-digit code sent to <strong>{email.trim()}</strong>.
-          </p>
+        <label className={styles.label} htmlFor="password">
+          Password
+        </label>
+        <input
+          id="password"
+          className={styles.input}
+          type="password"
+          value={password}
+          autoComplete={signingUp ? 'new-password' : 'current-password'}
+          placeholder={`At least ${MIN_PASSWORD} characters`}
+          minLength={MIN_PASSWORD}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-          <form className={styles.form} onSubmit={(e) => void verifyCode(e)}>
-            <label className={styles.label} htmlFor="code">
-              Code
-            </label>
-            <input
-              id="code"
-              className={`${styles.input} ${styles.codeInput}`}
-              type="text"
-              value={code}
-              // Lets iOS offer the code straight from the notification.
-              autoComplete="one-time-code"
-              inputMode="numeric"
-              maxLength={6}
-              placeholder="123456"
-              onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-              required
-              autoFocus
-            />
-            <button type="submit" className={styles.submit} disabled={busy || code.length < 6}>
-              {busy ? 'Checking…' : 'Sign in'}
-            </button>
-          </form>
+        <button type="submit" className={styles.submit} disabled={busy || !ready}>
+          {busy ? 'Just a moment…' : signingUp ? 'Create account' : 'Sign in'}
+        </button>
+      </form>
 
-          <button type="button" className={styles.secondary} onClick={startOver}>
-            Use a different email
-          </button>
-        </>
-      )}
+      <button type="button" className={styles.secondary} onClick={switchMode}>
+        {signingUp ? 'I already have an account' : 'Create an account'}
+      </button>
 
       {error !== null && <div className={`${styles.note} ${styles.error}`}>{error}</div>}
+      {notice !== null && <div className={styles.note}>{notice}</div>}
     </div>
   )
 }
