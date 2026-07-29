@@ -34,7 +34,14 @@ function toMilestone(row: MilestoneRow): Milestone {
   }
 }
 
-/** Only the fields present in `patch` are sent, so partial updates stay partial. */
+/**
+ * Only the fields present in `patch` are sent, so partial updates stay partial.
+ *
+ * `notes` and `link` test key presence rather than value, because they are the
+ * two fields that can legitimately be cleared. The client model spells "no
+ * note" as `undefined`, so a value test would read an intentional clear as
+ * "field absent" and silently leave the old text in the database.
+ */
 function toRow(patch: Partial<Milestone>): Partial<MilestoneRow> {
   const row: Partial<MilestoneRow> = {}
   if (patch.title !== undefined) row.title = patch.title
@@ -42,8 +49,8 @@ function toRow(patch: Partial<Milestone>): Partial<MilestoneRow> {
   if (patch.date !== undefined) row.occurs_at = patch.date
   if (patch.time !== undefined) row.has_time = patch.time
   if (patch.who !== undefined) row.who = patch.who
-  if (patch.notes !== undefined) row.notes = patch.notes ?? null
-  if (patch.link !== undefined) row.link = patch.link ?? null
+  if ('notes' in patch) row.notes = patch.notes ?? null
+  if ('link' in patch) row.link = patch.link ?? null
   if (patch.remind !== undefined) row.remind = patch.remind
   return row
 }

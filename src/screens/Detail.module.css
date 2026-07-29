@@ -43,7 +43,13 @@
   font-size: 14px;
   color: var(--color-accent-700);
   cursor: pointer;
-  padding: 8px;
+  /* 44px is the minimum comfortable touch target on a phone; at 8px padding
+     this was 33px tall and sat right under the status bar. The background is
+     transparent, so the extra room costs nothing visually — the negative
+     margin keeps the label aligned to the 20px page gutter. */
+  min-height: 44px;
+  padding: 8px 14px;
+  margin-right: -6px;
   border-radius: 999px;
 }
 

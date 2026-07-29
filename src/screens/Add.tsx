@@ -22,9 +22,17 @@ function whoHint(who: Who): string {
   return 'Private to you.'
 }
 
+/**
+ * Create a milestone, or edit one.
+ *
+ * Both modes share this screen deliberately — the fields, validation and date
+ * rules are identical, and a second near-copy would be the thing that drifts.
+ * `editingId` is the only switch: null creates, an id updates.
+ */
 export function Add() {
   const { state, dispatch, store } = useApp()
-  const { draft, now, items } = state
+  const { draft, now, items, editingId } = state
+  const editing = editingId !== null
 
   // Naming a new category is a two-step inline flow rather than a dialog —
   // one field, one tap, no modal stacked on a modal.
@@ -51,9 +59,12 @@ export function Add() {
     setNaming(false)
   }
 
+  // Editing was entered from Detail, so that's where cancelling and saving both
+  // return. Creating has no such origin and goes to the list.
   const close = () => {
+    const back = editing ? 'detail' : 'upcoming'
     dispatch({ type: 'draft/reset' })
-    dispatch({ type: 'screen/set', screen: 'upcoming' })
+    dispatch({ type: 'screen/set', screen: back })
   }
 
   const titled = draft.title.trim() !== ''
@@ -67,8 +78,7 @@ export function Add() {
   async function handleSave() {
     if (!titled) return
 
-    const milestone: Milestone = {
-      id: crypto.randomUUID(),
+    const fields: Omit<Milestone, 'id'> = {
       title: draft.title.trim(),
       cat: draft.cat,
       date: draft.hasTime ? `${draft.date}T${draft.time}` : draft.date,
@@ -80,7 +90,11 @@ export function Add() {
     }
 
     try {
-      await store.add(milestone)
+      if (editingId === null) {
+        await store.add({ id: crypto.randomUUID(), ...fields })
+      } else {
+        await store.update(editingId, fields)
+      }
       close()
     } catch (cause: unknown) {
       dispatch({
@@ -97,7 +111,7 @@ export function Add() {
           <button type="button" className={styles.cancel} onClick={close}>
             Cancel
           </button>
-          <div className={styles.kicker}>New milestone</div>
+          <div className={styles.kicker}>{editing ? 'Edit milestone' : 'New milestone'}</div>
           <div className={styles.spacer} />
         </div>
 
@@ -108,7 +122,9 @@ export function Add() {
             onChange={(e) => patch({ title: e.target.value })}
             placeholder="What's coming up?"
             aria-label="Title"
-            autoFocus
+            // Focusing an already-filled field would only throw the keyboard up
+            // over the form on a phone.
+            autoFocus={!editing}
           />
           <div className={styles.titleRule} />
         </div>
@@ -288,7 +304,7 @@ export function Add() {
           disabled={!titled}
           onClick={() => void handleSave()}
         >
-          {titled ? 'Start the countdown' : 'Name it first'}
+          {!titled ? 'Name it first' : editing ? 'Save changes' : 'Start the countdown'}
         </button>
       </div>
     </>

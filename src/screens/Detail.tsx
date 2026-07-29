@@ -86,7 +86,14 @@ export function Detail() {
         <button type="button" className={styles.back} onClick={goHome} aria-label="Back">
           <ChevronLeft size={19} strokeWidth={2.75} aria-hidden="true" />
         </button>
-        <button type="button" className={styles.edit}>
+        <button
+          type="button"
+          className={styles.edit}
+          onClick={() => {
+            dispatch({ type: 'draft/edit', item })
+            dispatch({ type: 'screen/set', screen: 'add' })
+          }}
+        >
           Edit
         </button>
       </div>

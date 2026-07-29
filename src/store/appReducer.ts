@@ -32,6 +32,12 @@ export interface AppState {
   cat: 'all' | string
   selectedId: string | null
   /**
+   * Set while the Add screen is editing an existing milestone rather than
+   * creating one. Null means "new". The Add screen is the only editor, so this
+   * is what tells it to update instead of insert.
+   */
+  editingId: string | null
+  /**
    * The home-screen widget's bucket. Deliberately NOT the same as `person` —
    * changing one must never change the other (README.md → Sharing → widget).
    */
@@ -59,6 +65,28 @@ export function emptyDraft(): Draft {
   }
 }
 
+/**
+ * Fill the draft from an existing milestone so the Add screen can edit it.
+ *
+ * `date` carries the time for timed milestones ('2026-09-09T20:20'), so it
+ * splits back apart here. An all-day milestone keeps a plausible default time,
+ * so toggling `hasTime` on doesn't land on an empty field.
+ */
+export function draftFromMilestone(item: Milestone): Draft {
+  const [date, time] = item.date.split('T')
+  return {
+    title: item.title,
+    cat: item.cat,
+    who: item.who,
+    date,
+    time: time ?? '19:30',
+    hasTime: item.time,
+    remind: item.remind ?? false,
+    notes: item.notes ?? '',
+    link: item.link ?? '',
+  }
+}
+
 export type AppAction =
   | { type: 'items/loaded'; items: Milestone[] }
   | { type: 'screen/set'; screen: Screen }
@@ -71,6 +99,7 @@ export type AppAction =
   | { type: 'linked/toggle' }
   | { type: 'rules/toggle'; key: keyof ShareRules }
   | { type: 'draft/patch'; patch: Partial<Draft> }
+  | { type: 'draft/edit'; item: Milestone }
   | { type: 'draft/reset' }
 
 export const initialState: AppState = {
@@ -80,6 +109,7 @@ export const initialState: AppState = {
   person: 'all',
   cat: 'all',
   selectedId: null,
+  editingId: null,
   widgetPerson: 'all',
   now: new Date(),
   error: null,
@@ -112,8 +142,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, rules: { ...state.rules, [action.key]: !state.rules[action.key] } }
     case 'draft/patch':
       return { ...state, draft: { ...state.draft, ...action.patch } }
+    case 'draft/edit':
+      return { ...state, draft: draftFromMilestone(action.item), editingId: action.item.id }
     case 'draft/reset':
-      return { ...state, draft: emptyDraft() }
+      return { ...state, draft: emptyDraft(), editingId: null }
     default:
       return state
   }

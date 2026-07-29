@@ -33,12 +33,16 @@ To turn sync on:
 
    Once both accounts exist, turn **off** "Allow new users to sign up" in the same panel. The door closes behind you.
 
-4. Both people create an account in the app. Then pair the two accounts by inserting a row in `partners` **in each direction** — the Sharing screen will do this once it exists:
+4. Both people create an account in the app. Then pair the two accounts by inserting a row in `partners` **in each direction**:
    ```sql
    insert into public.partners (user_id, partner_id) values ('<jordan-uuid>', '<maddie-uuid>');
    insert into public.partners (user_id, partner_id) values ('<maddie-uuid>', '<jordan-uuid>');
    ```
-   User ids are in Dashboard → Authentication → Users.
+   User ids are in Dashboard → Authentication → Users. **Done for this project's two accounts.**
+
+   > **Until these rows exist, sharing is silently dead.** Nothing errors: the SELECT policy is `owner_id = auth.uid() or (who <> 'me' and is_partner_of(owner_id))`, so with no link rows the second clause is always false and each person just sees their own list. It looks exactly like a working app with an empty database.
+
+   This cannot be done from the app, by design. The `partners` INSERT policy is `user_id = auth.uid()`, so you can only ever create *your own* direction — neither person can write the other's row. Pairing is therefore a deliberate server-side step, not a self-service one. A real invite flow would need a `security definer` function that writes both rows once an invite is accepted.
 
 ### Reminders
 
